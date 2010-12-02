@@ -1,0 +1,146 @@
+#!/bin/bash
+################################################################################
+#
+# Fetches svn:external defs, symlinks them into your git tree, and adds them
+# to .git/info/exclude. Run ONLY from git root.
+#
+################################################################################
+
+function get_module_name()
+{
+	echo "$1"
+}
+
+function get_module_rev()
+{
+	local isrev=$(echo $2 | grep -E -e "-r[[:digit:]]+")
+
+	if [ -z "$isrev" ]
+	then
+		echo
+	else
+		echo "$(echo $2 | sed 's/-r//g')"
+	fi
+}
+
+function get_module_loc()
+{
+	local rev=$(get_module_rev $@)
+
+	if [ -z "$rev" ]
+	then
+		echo $2
+	else
+		echo $3
+	fi
+}
+
+function do_checkout()
+{
+	[ -z "$1" ] && [ -z "$2" ] && [ -z "$3" ] && exit 1	
+
+	local localrepo="$1/$2"
+	echo '# 'checking $localrepo
+
+	if [ -d "$localrepo" ]
+	then
+		#working copy already exists... update or switch
+		echo '# '"update or switch..."
+
+		#figure out if we need to switch
+		local currentbranch=$(svn info $localrepo | grep "^URL" | cut -c 6-)
+		echo '# 'currentbranch:' '$currentbranch
+		echo '# 'newbranch:'     '$3
+
+		if [ "$3" = "$currentbranch" ]
+		then
+			echo '# 'no switch needed...
+		else
+			echo '# 'switch needed
+			echo '# 'svn switch $3 $localrepo
+			svn switch $3 $localrepo
+		fi
+
+		if [ -z "$4" ]
+		then
+			#no revision, just update
+			echo '# 'svn update --force $localrepo
+			svn update --force $localrepo
+		else
+			#update to revision
+			echo '# 'svn update --force -r$4 $localrepo
+			svn update --force -r$4 $localrepo
+		fi
+
+	else
+		#working copy does not exist... fresh checkout
+		echo '# '"fresh checkout"
+
+		local dir=$(echo $localrepo | sed 's/[^\/]*$//')
+		local url=$3
+
+		#append revision if needed
+		if [ ! -z "$4" ]
+		then
+			url=$url@$4
+		fi
+
+		mkdir -p $dir
+		echo '# 'svn checkout "$url" "$localrepo"
+		svn checkout "$url" "$localrepo"
+	fi
+}
+
+function do_link()
+{
+	#echo '# 'pwd: $(pwd)
+	if [ ! -L $2 ]; then
+		echo '# 'ln -vs $(pwd)/$1/$2 "./$2"
+		ln -vs $(pwd)/$1/$2 "./$2"
+	else
+		echo '# 'link exists: $2
+	fi
+}
+
+function do_exclude()
+{
+	local f=".git/info/exclude" #TODO pass as arg
+	
+	if [ -z "$(grep $1 $f)" ]
+	then
+		echo '# '$1 '>>' $f
+		echo "$1" >> $f
+	else
+		echo '# 'module $1 already ignored in $f
+	fi
+}
+
+excludefile=".git/info/exclude"
+externalsdirname=".externals"
+
+mkdir -p $externalsdirname
+
+#make sure .externals dir is ignored
+if [ -z "$(grep $externalsdirname $excludefile)" ]; then
+	echo $externalsdirname >> $excludefile
+fi
+
+#find external defs and gtd
+git svn propget svn:externals . | grep -v -e "^#" -e "^$" | while read -a l
+do
+	echo '##############################################'
+
+	modulename=$(get_module_name ${l[*]})
+	modulerev=$(get_module_rev ${l[*]})
+	moduleloc=$(get_module_loc ${l[*]})
+
+	echo '# 'external: ${l[*]}
+	echo '# 'modulename: $modulename
+	echo '# 'modulerev: $modulerev
+	echo '# 'moduleloc: $moduleloc
+
+	do_checkout "$externalsdirname" "$modulename" "$moduleloc" "$modulerev"
+	do_link "$externalsdirname" "$modulename"
+	do_exclude "$modulename"
+done
+

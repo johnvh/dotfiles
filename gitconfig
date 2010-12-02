@@ -1,0 +1,31 @@
+[user]
+	name = John Van Horn
+
+[color]
+	# auto - always use color when output to terminal
+	ui = auto
+
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+
+	# an attempt at easy 'add' feature. Greps status output against supplied regex
+	# and git add the results.
+	radd = "!f(){ git status --name-status | cut -c 3- | grep $1 | xargs -n1 git add; }; f"
+
+	# show global aliases
+	alias = "!f(){ git config -l --global | grep ^alias;}; f"
+
+	#git-svn stuff
+
+	# better preview of "git svn dcommit -n" including log messages and file
+	# modification status ('svn status' style) for each commit
+	# Usage: git sstat => when on a branch that is downstream from an SVN
+	# branch
+	sstat = "!GIT_PAGER=; j(){ git svn dcommit -n | awk -- 'FNR > 1 {print $3}' | xargs -n 1 -I{} bash -c 'git log --oneline {}~1..{} && git diff --name-status {}^ {}'; git status | head -1 ; git svn dcommit -n | head -1;}; j"
+
+	# full diff output for each commit going upstream to svn branch
+	# Usage: git sdiff => when on a git-svn branch
+	sdiff = "!j(){ git svn dcommit -n | awk -- 'FNR > 1 {print $0}' | sed 's/-tree//' | xargs -n3 git;}; j"
+
