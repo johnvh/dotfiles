@@ -1,51 +1,85 @@
+require 'fileutils'
 require 'rake'
-require 'erb'
 
-desc "install the dot files into user's home directory"
-task :install do
-  replace_all = false
-  Dir['*'].each do |file|
-    next if %w[Rakefile README.rdoc LICENSE].include? file
-    
-    if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
-      if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
-        puts "identical ~/.#{file.sub('.erb', '')}"
-      elsif replace_all
-        replace_file(file)
-      else
-        print "overwrite ~/.#{file.sub('.erb', '')}? [ynaq] "
-        case $stdin.gets.chomp
-        when 'a'
-          replace_all = true
-          replace_file(file)
-        when 'y'
-          replace_file(file)
-        when 'q'
-          exit
-        else
-          puts "skipping ~/.#{file.sub('.erb', '')}"
-        end
-      end
-    else
-      link_file(file)
-    end
-  end
+$home = ENV['HOME']
+$files = [
+	["bash_profile", 	"#{$home}/.bash_profile"],
+	["bashrc", 			"#{$home}/.bashrc"],
+	["gitconfig", 		"#{$home}/.gitconfig"],
+	["gvimrc", 			"#{$home}/.gvimrc"],
+	["vimrc", 			"#{$home}/.vimrc"],
+	["vim", 			"#{$home}/.vim"],
+	["bin/colorize", 					"#{$home}/bin/colorize"],
+	["bin/flashcookie.py", 				"#{$home}/bin/flashcookie.py"],
+	["bin/flexlibpropsdiff.py", 		"#{$home}/bin/flexlibpropsdiff.py"],
+	["bin/git-svn-get-externals", 		"#{$home}/bin/git-svn-get-externals"],
+	["bin/mvim", 						"#{$home}/bin/mvim"],
+	["bin/octalpermval", 				"#{$home}/bin/octalpermval"],
+	["bin/osx-modify-font-smoothing", 	"#{$home}/bin/osx-modify-font-smoothing"],
+	["bin/setprompt", 					"#{$home}/bin/setprompt"],
+]
+
+desc "install the dot files into home directory: #{$home}. Dry run if arg is nil."
+task :install, :arg1 do |t, args|
+	if args.arg1
+		puts "DRY RUN"
+		include FileUtils::DryRun
+	end
+	
+	replace_all = false
+	
+	#just create ~/bin, we'll symlink all our stuff there
+	mkdir_p "#{$home}/bin"
+	
+	#all other files, symlink to home
+	$files.each do |f|
+		src = File.join Dir.getwd, f[0]
+		dest = f[1]
+		
+		puts "file: #{src}"
+		puts "dest: #{dest}"
+		
+		#prompt for overwrite if dest exists
+		if File.exist? dest
+			if replace_all
+				rm_file dest
+			else
+				#TODO check identical
+				print "overwrite #{dest} ? [ynaq] "
+				case $stdin.gets.chomp
+				when 'a'
+				  replace_all = true
+				  rm_file dest
+				when 'y'
+				  rm_file dest
+				when 'q'
+				  exit
+				else
+				  puts "skipping #{dest}"
+				  puts ''
+				  next
+				end
+			end
+		end
+		
+		ln_s src, dest
+		puts ''
+	end
 end
 
-def replace_file(file)
-  system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
-  link_file(file)
+def rm_file(f)
+	#puts "rm: #{f}"
+	rm_rf f
 end
 
-def link_file(file)
-  if file =~ /.erb$/
-    puts "generating ~/.#{file.sub('.erb', '')}"
-    File.open(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"), 'w') do |new_file|
-      new_file.write ERB.new(File.read(file)).result(binding)
-    end
-  else
-    puts "linking ~/.#{file}"
-    system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
-  end
+desc "Remove files installed by 'install'. Dry run if arg is not nil."
+task :clobber, :arg1 do |t, args|
+	if args.arg1
+		puts "DRY RUN"
+		include FileUtils::DryRun
+	end
+	$files.each do |f|
+		rm_file f[1]
+	end
 end
 
