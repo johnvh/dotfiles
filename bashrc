@@ -14,6 +14,8 @@ export HISTCONTROL=erasedups
 export HISTSIZE=10000			
 # xmllint --format indent char
 export XMLLINT_INDENT='	'
+# always grep w/ color
+export GREP_OPTIONS='--color=auto'
 
 source ~/bin/setprompt
 
