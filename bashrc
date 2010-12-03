@@ -21,8 +21,6 @@ alias ls='ls -alG'
 alias cal='cal | grep -C6 --color -e " $(date +%e)" -e "^(date +%e)"';
 alias s='svn stat --ignore-externals .'
 
-###############################################################################
-## Machine, env specific
-###############################################################################
-
-
+if [ -f ~/.bashrc.local ]; then
+	source ~/.bashrc.local
+fi
