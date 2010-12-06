@@ -13,6 +13,10 @@ nnoremap o o<Space><BS>
 set tabstop=4
 set shiftwidth=4
 
+"disable the F1 help key - always hit it by accident
+map <F1> <Esc>
+imap <F1> <Esc>
+
 set ruler							"always show ruler
 set scrolloff=3						"keep lines visible when scrolling
 set backspace=indent,eol,start		"can backspace to prev line
