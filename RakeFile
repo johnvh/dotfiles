@@ -19,7 +19,7 @@ $files = [
 	["bin/setprompt", 					"#{$home}/bin/setprompt"],
 ]
 
-desc "install the dot files into home directory: #{$home}. Dry run if arg is nil."
+desc "install the dot files into home directory: #{$home}. Dry run if arg is not nil."
 task :install, :arg1 do |t, args|
 	if args.arg1
 		puts "DRY RUN"
