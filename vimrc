@@ -25,6 +25,7 @@ set number							"show line numbers
 set showmatch						"on insert bracket, show matching bracket
 set pastetoggle=<f8>				"make F8 toggle paste/nopaste
 set nowrap							"no soft wrap by default
+set encoding=utf-8					"use utf 8
 
 "nmap <F2> V"ay
 "nmap <F3> V"Ay
