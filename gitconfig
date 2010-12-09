@@ -23,7 +23,7 @@
 	# modification status ('svn status' style) for each commit
 	# Usage: git sstat => when on a branch that is downstream from an SVN
 	# branch
-	sstat = "!GIT_PAGER=; j(){ git svn dcommit -n | awk -- 'FNR > 1 {print $3}' | xargs -n 1 -I{} bash -c 'git log --oneline {}~1..{} && git diff --name-status {}^ {}'; git status | head -1 ; git svn dcommit -n | head -1;}; j"
+	sstat = "!j(){ git svn dcommit -n | awk -- 'FNR > 1 {print $3}' | xargs -n 1 -I{} bash -c 'GIT_PAGER='' git log --oneline {}~1..{} && git diff --name-status {}^ {}'; git status | head -1 ; git svn dcommit -n | head -1;}; j"
 
 	# full diff output for each commit going upstream to svn branch
 	# Usage: git sdiff => when on a git-svn branch
