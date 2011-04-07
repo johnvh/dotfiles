@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Prints scp uri to file
+# e.g. scp://host.com//home/you/file.txt
+
+function usage
+{
+	cat <<EOM
+Usage: toscpuri file
+EOM
+	[ ! -z "$1" ] && echo "$1"
+}
+
+[ ! -f "$1" ] && usage "File $1 does not exist" && exit 1
+
+FULLPATH=$(python -c "import os,sys; print os.path.abspath(sys.argv[1])" "$1")
+
+echo scp://$(hostname)/$FULLPATH

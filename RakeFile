@@ -17,6 +17,7 @@ $files = [
 	["bin/octalpermval", 				"#{$home}/bin/octalpermval"],
 	["bin/osx-modify-font-smoothing", 	"#{$home}/bin/osx-modify-font-smoothing"],
 	["bin/setprompt", 					"#{$home}/bin/setprompt"],
+	["bin/toscpuri", 					"#{$home}/bin/toscpuri"],
 ]
 
 desc "install the dot files into home directory: #{$home}. Dry run if arg is not nil."
