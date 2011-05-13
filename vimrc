@@ -38,7 +38,8 @@ set encoding=utf-8					"use utf 8
 "nmap <F3> V"Ay
 "nmap <F4> "ap
 
-syntax on
+syntax on "turn on syntax highlight
+
 "set dictionary+=~/.vim/actionscript.vim
 autocmd BufNewFile,BufRead *.as set syntax=actionscript 
 
@@ -50,14 +51,4 @@ map <Leader>n :NERDTreeToggle<CR>
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-
-function! ShitIAmLearning()
-	echo 'New stuff:'
-	echo '	Visual Ops:'
-	echo '		vi[ - select inner [ ]'
-	echo '	Buffer recall:'
-	echo '		<C-r>" - recall register "'
-	echo '	Help Search:'
-	echo '		:help foo<c-d>'
-endfunction
 
