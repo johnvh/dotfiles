@@ -1,3 +1,7 @@
+"pathogen enable
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 set incsearch	"show search results as you type
 set ignorecase	"ignore case in search patterns
 set smartcase	"override ignorecase if pattern contains upper case chars
