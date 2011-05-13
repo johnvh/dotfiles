@@ -9,6 +9,7 @@ $files = [
 	["gvimrc", 			"#{$home}/.gvimrc"],
 	["vimrc", 			"#{$home}/.vimrc"],
 	["vim", 			"#{$home}/.vim"],
+	["vim/pathogen/autoload/pathogen.vim", "#{$home}/.vim/autoload/pathogen.vim"],
 	["bin/colorize", 					"#{$home}/bin/colorize"],
 	["bin/flashcookie.py", 				"#{$home}/bin/flashcookie.py"],
 	["bin/flexlibpropsdiff.py", 		"#{$home}/bin/flexlibpropsdiff.py"],
