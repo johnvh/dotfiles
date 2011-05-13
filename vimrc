@@ -40,6 +40,10 @@ syntax on
 autocmd BufNewFile,BufRead *.as set syntax=actionscript 
 colorscheme torte
 
+" include ~/.vimrc.local if found for local overrides
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
 
 function! ShitIAmLearning()
 	echo 'New stuff:'
