@@ -11,3 +11,6 @@
 	path = vim/bundle/nerdcommenter
 	url = git://github.com/ddollar/nerdcommenter.git
 	ignore = dirty
+[submodule "vim/bundle/javascript"]
+	path = vim/bundle/javascript
+	url = git://github.com/pangloss/vim-javascript.git
