@@ -23,6 +23,8 @@
 [submodule "vim/bundle/conque-shell"]
 	path = vim/bundle/conque-shell
 	url = git://github.com/vim-scripts/Conque-Shell.git
+    ignore = untracked
 [submodule "vim/bundle/vim-git"]
 	path = vim/bundle/vim-git
 	url = git://github.com/tpope/vim-git.git
+    ignore = untracked
