@@ -39,9 +39,16 @@ set encoding=utf-8					"use utf 8
 "nmap <F4> "ap
 
 syntax on "turn on syntax highlight
+syntax enable
+
+filetype plugin indent on
+filetype on
 
 "set dictionary+=~/.vim/actionscript.vim
 autocmd BufNewFile,BufRead *.as set syntax=actionscript 
+
+"ruby filetype
+au BufRead,BufNewFile {Rakefile,RakeFile} set ft=ruby
 
 " NERDTree configuration
 " - map Leader-, to toggle nerdtree tray
