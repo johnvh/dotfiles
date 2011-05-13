@@ -44,8 +44,14 @@ syntax on "turn on syntax highlight
 autocmd BufNewFile,BufRead *.as set syntax=actionscript 
 
 " NERDTree configuration
+" - map Leader-, to toggle nerdtree tray
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 map <Leader>n :NERDTreeToggle<CR>
+
+" NERDCommenter config
+" - Leader-/ to toggle comments
+map <Leader>/ <plug>NERDCommenterToggle<CR>
+imap <Leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 
 " include ~/.vimrc.local if found for local overrides
 if filereadable(expand("~/.vimrc.local"))

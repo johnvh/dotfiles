@@ -4,6 +4,11 @@ colorscheme solarized
 
 set guifont=Inconsolata:h14
 
+" NERDCommenter config
+" - Command-/ to toggle comments
+map <D-/> <plug>NERDCommenterToggle<CR>
+imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
+
 " Include ~/.givmrc.local if exists for local overrides
 if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
