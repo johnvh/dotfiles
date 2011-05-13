@@ -10,3 +10,4 @@
 [submodule "vim/bundle/nerdcommenter"]
 	path = vim/bundle/nerdcommenter
 	url = git://github.com/ddollar/nerdcommenter.git
+	ignore = dirty
