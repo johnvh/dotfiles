@@ -2,6 +2,9 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" leader key
+let mapleader = ','
+
 set incsearch	"show search results as you type
 set ignorecase	"ignore case in search patterns
 set smartcase	"override ignorecase if pattern contains upper case chars
@@ -38,7 +41,10 @@ set encoding=utf-8					"use utf 8
 syntax on
 "set dictionary+=~/.vim/actionscript.vim
 autocmd BufNewFile,BufRead *.as set syntax=actionscript 
-colorscheme torte
+
+" NERDTree configuration
+let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
+map <Leader>n :NERDTreeToggle<CR>
 
 " include ~/.vimrc.local if found for local overrides
 if filereadable(expand("~/.vimrc.local"))
