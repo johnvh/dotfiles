@@ -11,4 +11,4 @@ imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
 " Include ~/.givmrc.local if exists for local overrides
 if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
-  endif
+endif
