@@ -17,6 +17,8 @@ set hls			"highlight all search matches
 set autoindent			"new lines use indent of previous line
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
+set expandtab
 set ruler							"always show ruler
 set scrolloff=3						"keep lines visible when scrolling
 set backspace=indent,eol,start		"can backspace to prev line
@@ -26,10 +28,13 @@ set showmatch						"on insert bracket, show matching bracket
 set pastetoggle=<f8>				"make F8 toggle paste/nopaste
 set nowrap							"no soft wrap by default
 set encoding=utf-8					"use utf 8
+set textwidth=80
+set cursorline  "higlight current line
 
 syntax on "turn on syntax highlight
 syntax enable
 
+"Stop removing indent from empty lines
 nnoremap o o<Space><BS>
 
 "disable the F1 help key - always hit it by accident
