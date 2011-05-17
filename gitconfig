@@ -29,3 +29,7 @@
 	# Usage: git sdiff => when on a git-svn branch
 	sdiff = "!j(){ git svn dcommit -n | awk -- 'FNR > 1 {print $0}' | sed 's/-tree//' | xargs -n3 git;}; j"
 
+[merge]
+	#In addition to <<< (yours) and >>> (theirs) markers, adds ||| (original,
+	#parent) marker
+	conflictstyle = diff3
