@@ -28,3 +28,6 @@
 	path = vim/bundle/vim-git
 	url = git://github.com/tpope/vim-git.git
     ignore = untracked
+[submodule "vim/bundle/mustache"]
+	path = vim/bundle/mustache
+	url = git://github.com/juvenn/mustache.vim.git
