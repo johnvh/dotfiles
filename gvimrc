@@ -1,7 +1,8 @@
 set background=dark
 colorscheme solarized
 
-set guifont=Inconsolata:h14
+"set guifont=Inconsolata:h14
+set guifont=DejaVu\ Sans\ Mono:h14
 
 " NERDCommenter config
 " - Command-/ to toggle comments
