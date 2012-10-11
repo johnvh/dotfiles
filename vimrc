@@ -50,6 +50,9 @@ autocmd BufNewFile,BufRead *.as set syntax=actionscript
 "ruby filetype
 au BufRead,BufNewFile {Rakefile,RakeFile} set ft=ruby
 
+"handlebars filetype => mustache
+au BufRead,BufNewFile {hb,hbs,handlebars} set ft=mustache
+
 " NERDTree configuration
 " - map Leader-n, to toggle nerdtree tray
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
