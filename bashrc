@@ -18,6 +18,7 @@ export XMLLINT_INDENT='	'
 export GREP_OPTIONS='--color=auto'
 
 source ~/bin/setprompt
+setprompt
 
 alias ls='ls -alG'
 alias cal='cal | grep -C6 --color -e " $(date +%e)" -e "^(date +%e)"';

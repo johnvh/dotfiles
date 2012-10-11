@@ -33,7 +33,9 @@ function setprompt {
     local BGC="\[\033[46m\]"
     local BGW="\[\033[47m\]"
 
-    local H=`hostname | sed -e 's,\.\(..\)[^.]*,.\1,g' -e 's/...$/./'`
+    #local H=`hostname | sed -e 's,\.\(..\)[^.]*,.\1,g' -e 's/...$/./'`
+    local H=$(hostname)
+    
     # create a bash color value from hostname
     local HCV=$((31 + $(hostname | cksum | cut -c1-3) % 6))
     local HC="\[\033[0;${HCV}m\]"
@@ -46,5 +48,3 @@ function setprompt {
     PS1="$PS1\w]\$ ${NONE}"
     export PS1 
 }
-
-setprompt
