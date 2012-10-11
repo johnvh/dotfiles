@@ -3,7 +3,7 @@
 # append to history on exit
 shopt -s histappend				
 
-PATH=~/bin:$PATH
+PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
 export PATH
 export EDITOR=vim
 export HISTFILE=~/.bash_history
