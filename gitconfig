@@ -1,6 +1,9 @@
 [user]
 	name = John Van Horn
 
+[core]
+	excludesfile = ~/.gitignore.global
+
 [color]
 	# auto - always use color when output to terminal
 	ui = auto
