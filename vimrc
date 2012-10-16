@@ -60,6 +60,9 @@ au BufRead,BufNewFile {Rakefile,RakeFile} set ft=ruby
 "handlebars filetype => mustache
 au BufRead,BufNewFile {hb,hbs,handlebars} set ft=mustache
 
+"nginx conf
+au BufRead,BufNewFile *nginx.conf set ft=nginx 
+
 " NERDTree configuration
 " - map Leader-n, to toggle nerdtree tray
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
