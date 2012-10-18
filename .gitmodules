@@ -34,3 +34,6 @@
 [submodule "vim/bundle/vim-nginx"]
 	path = vim/bundle/vim-nginx
 	url = git://github.com/jinfield/vim-nginx.git
+[submodule "vim/bundle/dustjs.vim"]
+	path = vim/bundle/dustjs.vim
+	url = git://github.com/jimmyhchan/dustjs.vim.git
