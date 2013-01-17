@@ -55,7 +55,7 @@ filetype on
 autocmd BufNewFile,BufRead *.as set syntax=actionscript 
 
 "ruby filetype
-au BufRead,BufNewFile {Rakefile,RakeFile} set ft=ruby
+au BufRead,BufNewFile {Rakefile,RakeFile,Capfile,capfile} set ft=ruby
 
 "handlebars filetype => mustache
 au BufRead,BufNewFile {hb,hbs,handlebars} set ft=mustache
