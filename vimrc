@@ -57,6 +57,9 @@ autocmd BufNewFile,BufRead *.as set syntax=actionscript
 "ruby filetype
 au BufRead,BufNewFile {Rakefile,RakeFile,Capfile,capfile} set ft=ruby
 
+"python filetype
+au BufRead,BufNewFile {fabfile} set ft=python
+
 "handlebars filetype => mustache
 au BufRead,BufNewFile {hb,hbs,handlebars} set ft=mustache
 
