@@ -27,3 +27,30 @@ alias s='svn stat --ignore-externals .'
 if [ -f ~/.bashrc.local ]; then
 	source ~/.bashrc.local
 fi
+
+# path functions...
+# append, prepend, remove stolen from:
+# http://stackoverflow.com/questions/370047/what-is-the-most-elegant-way-to-remove-a-path-from-the-path-variable-in-bash
+
+# print $PATH
+path () { echo $PATH; }
+
+path_append () { 
+    path_remove "$1"
+    export PATH="$PATH:$1"
+}
+
+path_prepend () { 
+    path_remove "$1"
+    export PATH="$1:$PATH"
+}
+
+path_remove () {
+    export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`
+}
+
+# removes 1st part from path
+path_shift () {
+    export PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: 'FNR>1' | sed 's/:$//')
+}
+
