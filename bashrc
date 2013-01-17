@@ -54,3 +54,6 @@ path_shift () {
     export PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: 'FNR>1' | sed 's/:$//')
 }
 
+# prepends $PWD/node_modules/.bin on $PATH
+path_node_modules () { path_prepend "$PWD/node_modules/.bin"; }
+
