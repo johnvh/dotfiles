@@ -3,9 +3,8 @@
 "   - figure out html w/ embedded js syntax issues
 "
 
-"pathogen enable
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+"pathogen init
+execute pathogen#infect()
 
 " leader key
 let mapleader = ','
