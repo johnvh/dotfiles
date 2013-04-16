@@ -65,6 +65,12 @@ au BufRead,BufNewFile {hb,hbs,handlebars} set ft=mustache
 "nginx conf
 au BufRead,BufNewFile *nginx.conf set ft=nginx 
 
+"github flavored markdown plugin
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+
 " NERDTree configuration
 " - map Leader-n, to toggle nerdtree tray
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
