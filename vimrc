@@ -65,6 +65,8 @@ au BufRead,BufNewFile {hb,hbs,handlebars} set ft=mustache
 "nginx conf
 au BufRead,BufNewFile *nginx.conf set ft=nginx 
 
+au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
+
 "github flavored markdown plugin
 augroup markdown
     au!
