@@ -43,3 +43,6 @@
 [submodule "vim/bundle/ghmarkdown"]
 	path = vim/bundle/ghmarkdown
 	url = git://github.com/jtratner/vim-flavored-markdown.git
+[submodule "vim/bundle/vim-visual-star-search"]
+	path = vim/bundle/vim-visual-star-search
+	url = git://github.com/nelstrom/vim-visual-star-search.git
