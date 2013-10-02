@@ -68,7 +68,10 @@ filetype on
 autocmd BufNewFile,BufRead *.as set syntax=actionscript 
 
 "ruby filetype
-au BufRead,BufNewFile {Rakefile,RakeFile,Capfile,capfile} set ft=ruby
+au BufRead,BufNewFile {Rakefile,RakeFile,Capfile,capfile,Gemfile} set ft=ruby
+au FileType ruby call SetTabLength(2)
+au FileType eruby call SetTabLength(2)
+autocmd FileType ruby map <F6> :!ruby -c %<CR>
 
 "python filetype
 au BufRead,BufNewFile {fabfile} set ft=python
