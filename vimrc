@@ -39,6 +39,13 @@ set nowrap							"no soft wrap by default
 set encoding=utf-8					"use utf 8
 set textwidth=80
 set cursorline  "higlight current line
+set exrc            " enable per-directory .vimrc files
+set secure          " disable unsafe commands in local .vimrc files
+set laststatus=2
+set nojoinspaces   " don't double space sentences when using `gq`
+set splitbelow     " open v split under current buffer
+set relativenumber
+
 let g:indentLine_char = '¦'
 
 syntax on "turn on syntax highlight
