@@ -36,6 +36,7 @@ set nowrap							"no soft wrap by default
 set encoding=utf-8					"use utf 8
 set textwidth=80
 set cursorline  "higlight current line
+let g:indentLine_char = '¦'
 
 syntax on "turn on syntax highlight
 syntax enable
