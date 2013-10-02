@@ -9,10 +9,10 @@ execute pathogen#infect()
 " leader key
 let mapleader = ','
 
-function SetTabLength(length)
-    execute "set tabstop=".a:length
-    execute "set shiftwidth=".a:length
-    execute "set softtabstop=".a:length
+function! SetTabLength(length)
+    execute "setl tabstop=".a:length
+    execute "setl shiftwidth=".a:length
+    execute "setl softtabstop=".a:length
 endfunction
 
 set incsearch	"show search results as you type
@@ -22,6 +22,9 @@ set hls			"highlight all search matches
 set autoindent			"new lines use indent of previous line
 set expandtab
 call SetTabLength(4)
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 "set tabstop=4
 "set shiftwidth=4
 "set softtabstop=4
