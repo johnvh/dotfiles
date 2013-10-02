@@ -28,6 +28,12 @@ if [ -f ~/.bashrc.local ]; then
 	source ~/.bashrc.local
 fi
 
+if which brew > /dev/null 2>&1; then
+  if brew list | grep -q git; then
+    source $(brew --prefix git)/etc/bash_completion.d/git-completion.bash
+  fi
+fi
+
 # path functions...
 # append, prepend, remove stolen from:
 # http://stackoverflow.com/questions/370047/what-is-the-most-elegant-way-to-remove-a-path-from-the-path-variable-in-bash
