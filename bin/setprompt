@@ -47,7 +47,7 @@ ${PROMPT_C}@\
 ${HOST_C}\h \
 ${PATH_C}\w \
 \$(if type -t $GIT_PS1_FUNC > /dev/null 2>&1; then $GIT_PS1_FUNC \"${GIT_C}(%s) \"; fi)\
-${PROMPT_C}\$${NONE} "
+${PROMPT_C}\\$ ${NONE}"
 
     export PS1
     export GIT_PS1_SHOWDIRTYSTATE=1
