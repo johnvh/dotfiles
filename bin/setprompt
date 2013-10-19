@@ -36,11 +36,17 @@ function setprompt {
     local PATH_C=$C
     local GIT_C=$M
     
+    # __git_ps1 is provided by the git-prompt script supplied with git install.
+    # see https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+    # this script must be sourced (and the __git_ps1 function must exist) for
+    # this to work
+    local GIT_PS1_FUNC=__git_ps1
+    
 PS1="${USER_C}\u\
 ${PROMPT_C}@\
 ${HOST_C}\h \
 ${PATH_C}\w \
-\$(__git_ps1 \"${GIT_C}(%s) \")\
+\$(if type -t $GIT_PS1_FUNC > /dev/null 2>&1; then $GIT_PS1_FUNC \"${GIT_C}(%s) \"; fi)\
 ${PROMPT_C}\$${NONE} "
 
     export PS1
