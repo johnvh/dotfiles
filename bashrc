@@ -31,6 +31,7 @@ fi
 if which brew > /dev/null 2>&1; then
   if brew list | grep -q git; then
     source $(brew --prefix git)/etc/bash_completion.d/git-completion.bash
+    source $(brew --prefix git)/etc/bash_completion.d/git-prompt.sh
   fi
 fi
 
