@@ -13,16 +13,6 @@ function setprompt {
     local C="\[\033[0;36m\]"    # cyan
     local W="\[\033[0;37m\]"    # white
     
-    # background colors
-    local BGK="\[\033[40m\]"
-    local BGR="\[\033[41m\]"
-    local BGG="\[\033[42m\]"
-    local BGY="\[\033[43m\]"
-    local BGB="\[\033[44m\]"
-    local BGM="\[\033[45m\]"
-    local BGC="\[\033[46m\]"
-    local BGW="\[\033[47m\]"
-
     #local H=`hostname | sed -e 's,\.\(..\)[^.]*,.\1,g' -e 's/...$/./'`
     local H=$(hostname)
     
