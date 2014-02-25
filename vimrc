@@ -52,7 +52,7 @@ syntax on "turn on syntax highlight
 syntax enable
 
 "Stop removing indent from empty lines
-nnoremap o o<Space><BS>
+"nnoremap o o<Space><BS>
 "<C-l> clears search too
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
