@@ -49,3 +49,5 @@
  # REMOTE. bottom buffer is merged working copy.
  #cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 
+[rebase]
+ autosquash = true
