@@ -36,14 +36,16 @@
     ix = "diff --cached"
 
 [merge]
-	#In addition to <<< (yours) and >>> (theirs) markers, adds ||| (original,
-	#parent) marker
-	conflictstyle = diff3
-	
-	# custom merge command
-	tool = gvimdiff3
-	
-[mergetool "gvimdiff3"]
-	# 3-way merge with gvim. should open 4 buffers. 3 across top LOCAL, BASE,
-	# REMOTE. bottom buffer is merged working copy.
-	cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+ #In addition to <<< (yours) and >>> (theirs) markers, adds ||| (original,
+ #parent) marker
+ conflictstyle = diff3
+
+ # custom merge command
+ #tool = gvimdiff3
+ tool = gvimdiff
+
+#[mergetool "gvimdiff3"]
+ # 3-way merge with gvim. should open 4 buffers. 3 across top LOCAL, BASE,
+ # REMOTE. bottom buffer is merged working copy.
+ #cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+
