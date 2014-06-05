@@ -33,6 +33,9 @@ if which brew > /dev/null 2>&1; then
     source $(brew --prefix git)/etc/bash_completion.d/git-completion.bash
     source $(brew --prefix git)/etc/bash_completion.d/git-prompt.sh
   fi
+
+  # brew bash completion
+  source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 fi
 
 # path functions...
