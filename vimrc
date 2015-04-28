@@ -45,8 +45,6 @@ set laststatus=2
 set nojoinspaces   " don't double space sentences when using `gq`
 set splitbelow     " open v split under current buffer
 set relativenumber
-
-let g:indentLine_char = '¦'
 set wildignore+=*coverage/*
 set modeline
 set modelines=5
@@ -102,6 +100,10 @@ map <Leader>n :NERDTreeToggle<CR>
 " - Leader-/ to toggle comments
 map <Leader>/ <plug>NERDCommenterToggle<CR>
 imap <Leader>/ <Esc><plug>NERDCommenterToggle<CR>i
+
+" For indentLine
+let g:indentLine_char = '¦'
+nmap <Leader>ig :IndentLinesToggle<CR>
 
 " include ~/.vimrc.local if found for local overrides
 if filereadable(expand("~/.vimrc.local"))
