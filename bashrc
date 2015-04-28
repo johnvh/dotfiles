@@ -21,6 +21,7 @@ source ~/bin/setprompt
 setprompt
 
 alias ls='ls -alG'
+alias ll='ls -alG'
 alias cal='cal | grep -C6 --color -e " $(date +%e)" -e "^(date +%e)"';
 alias s='svn stat --ignore-externals .'
 
