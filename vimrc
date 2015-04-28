@@ -112,3 +112,8 @@ endif
 
 set background=dark
 colorscheme solarized
+
+" vim-snipmate trigger
+imap <D-'> <esc>a<Plug>snipMateNextOrTrigger
+smap <D-'> <Plug>snipMateNextOrTrigger
+imap <Leader>ss <esc>a<Plug>snipMateShow
