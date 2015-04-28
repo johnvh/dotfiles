@@ -29,14 +29,9 @@ if [ -f ~/.bashrc.local ]; then
 	source ~/.bashrc.local
 fi
 
-if which brew > /dev/null 2>&1; then
-  if brew list | grep -q git; then
-    source $(brew --prefix git)/etc/bash_completion.d/git-completion.bash
-    source $(brew --prefix git)/etc/bash_completion.d/git-prompt.sh
-  fi
-
-  # brew bash completion
-  source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+PREFIX=$(brew --prefix 2> /dev/null)
+if [ -f $PREFIX/etc/bash_completion ]; then
+  . $PREFIX/etc/bash_completion
 fi
 
 # path functions...
