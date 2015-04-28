@@ -8,8 +8,8 @@ export PATH
 export EDITOR=vim
 export HISTFILE=~/.bash_history
 
-# erase duplicate commands
-export HISTCONTROL=erasedups	
+# dont history dupes, or command that start with space
+export HISTCONTROL=erasedups:ignorespace
 # save lots of history
 export HISTSIZE=10000			
 # xmllint --format indent char
