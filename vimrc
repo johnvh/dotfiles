@@ -48,6 +48,8 @@ set relativenumber
 
 let g:indentLine_char = '¦'
 set wildignore+=*coverage/*
+set modeline
+set modelines=5
 
 syntax on "turn on syntax highlight
 syntax enable
