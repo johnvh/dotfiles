@@ -47,6 +47,7 @@ set splitbelow     " open v split under current buffer
 set relativenumber
 
 let g:indentLine_char = '¦'
+set wildignore+=*coverage/*
 
 syntax on "turn on syntax highlight
 syntax enable
