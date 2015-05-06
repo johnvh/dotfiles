@@ -31,7 +31,7 @@ set softtabstop=4
 set ruler							"always show ruler
 set scrolloff=3						"keep lines visible when scrolling
 set backspace=indent,eol,start		"can backspace to prev line
-set listchars=tab:\⋮\ ,trail:-,eol:¬	"show these chars in list mode
+set listchars=nbsp:¬,tab:\⋮\ ,trail:-,eol:¶	"show these chars in list mode
 set number							"show line numbers
 set showmatch						"on insert bracket, show matching bracket
 set pastetoggle=<f8>				"make F8 toggle paste/nopaste
