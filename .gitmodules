@@ -39,7 +39,7 @@
 	url = git://github.com/jimmyhchan/dustjs.vim.git
 [submodule "vim/bundle/vim-less"]
 	path = vim/bundle/vim-less
-	url = https://github.com/groenewege/vim-less.git
+	url = git://github.com/groenewege/vim-less.git
 [submodule "vim/bundle/ghmarkdown"]
 	path = vim/bundle/ghmarkdown
 	url = git://github.com/jtratner/vim-flavored-markdown.git
@@ -48,31 +48,31 @@
 	url = git://github.com/nelstrom/vim-visual-star-search.git
 [submodule "vim/bundle/vim-airline"]
 	path = vim/bundle/vim-airline
-	url = https://github.com/bling/vim-airline
+	url = git://github.com/bling/vim-airline
 [submodule "vim/bundle/vim-fugitive"]
 	path = vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/matchit"]
 	path = vim/bundle/matchit
-	url = https://github.com/tsaleh/vim-matchit.git
+	url = git://github.com/tsaleh/vim-matchit.git
 [submodule "vim/bundle/vim-rails"]
 	path = vim/bundle/vim-rails
 	url = git://github.com/tpope/vim-rails.git
 [submodule "vim/bundle/vim-trailing-whitespace"]
 	path = vim/bundle/vim-trailing-whitespace
-	url = https://github.com/bronson/vim-trailing-whitespace.git
+	url = git://github.com/bronson/vim-trailing-whitespace.git
 [submodule "vim/bundle/indentLine"]
 	path = vim/bundle/indentLine
-	url = https://github.com/Yggdroot/indentLine.git
+	url = git://github.com/Yggdroot/indentLine.git
 [submodule "vim/bundle/YouCompleteMe"]
 	path = vim/bundle/YouCompleteMe
 	url = git@github.com:Valloric/YouCompleteMe.git
 [submodule "vim/bundle/tlib_vim"]
 	path = vim/bundle/tlib_vim
-	url = https://github.com/tomtom/tlib_vim.git
+	url = git://github.com/tomtom/tlib_vim.git
 [submodule "vim/bundle/vim-addon-mw-util"]
 	path = vim/bundle/vim-addon-mw-util
-	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "vim/bundle/vim-snipmate"]
 	path = vim/bundle/vim-snipmate
-	url = https://github.com/garbas/vim-snipmate.git
+	url = git://github.com/garbas/vim-snipmate.git
