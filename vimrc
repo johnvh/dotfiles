@@ -48,6 +48,7 @@ set relativenumber
 set wildignore+=*coverage/*
 set modeline
 set modelines=5
+set splitright
 
 syntax on "turn on syntax highlight
 syntax enable
