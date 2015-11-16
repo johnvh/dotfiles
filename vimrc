@@ -74,7 +74,7 @@ au BufRead,BufNewFile bash-fc-* set filetype=sh
 autocmd FileType sh set textwidth=0
 
 "ruby filetype
-au BufRead,BufNewFile {Rakefile,RakeFile,Capfile,capfile,Gemfile} set ft=ruby
+au BufRead,BufNewFile {Rakefile,RakeFile,Capfile,capfile,Gemfile,Vagrantfile} set ft=ruby
 au FileType ruby call SetTabLength(2)
 au FileType eruby call SetTabLength(2)
 autocmd FileType ruby map <F6> :!ruby -c %<CR>
