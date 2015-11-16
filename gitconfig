@@ -16,8 +16,13 @@
 	# show global aliases
 	alias = "!f(){ git config -l --global | grep ^alias;}; f"
 
+    # word-diff
+    wdiff = "diff --word-diff"
+
     # alias for diff of index
     ix = "diff --cached"
+    # + word-diff
+    wix = "diff --cached --word-diff"
 
 [merge]
  #In addition to <<< (yours) and >>> (theirs) markers, adds ||| (original,
