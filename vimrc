@@ -69,6 +69,10 @@ filetype on
 "set dictionary+=~/.vim/actionscript.vim
 autocmd BufNewFile,BufRead *.as set syntax=actionscript 
 
+"ft=sh for bash fc or ctrl-x ctrl-e
+au BufRead,BufNewFile bash-fc-* set filetype=sh
+autocmd FileType sh set textwidth=0
+
 "ruby filetype
 au BufRead,BufNewFile {Rakefile,RakeFile,Capfile,capfile,Gemfile} set ft=ruby
 au FileType ruby call SetTabLength(2)
