@@ -99,7 +99,6 @@ augroup END
 " NERDTree configuration
 " - map Leader-n, to toggle nerdtree tray
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
-map <Leader>n :NERDTreeToggle<CR>
 
 " NERDCommenter config
 " - Leader-/ to toggle comments
@@ -122,3 +121,19 @@ colorscheme solarized
 imap <D-'> <esc>a<Plug>snipMateNextOrTrigger
 smap <D-'> <Plug>snipMateNextOrTrigger
 imap <Leader>ss <esc>a<Plug>snipMateShow
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" My mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Wrapped lines goes down/up to next row, rather than next line in file.
+noremap j gj
+noremap k gk
+
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+map <Leader>nn :NERDTreeToggle<CR>
+map <Leader>nf :NERDTreeFind<CR>
