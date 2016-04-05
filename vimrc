@@ -122,6 +122,34 @@ imap <D-'> <esc>a<Plug>snipMateNextOrTrigger
 smap <D-'> <Plug>snipMateNextOrTrigger
 imap <Leader>ss <esc>a<Plug>snipMateShow
 
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+
+" Fix syntastic error jumping
+function! <SID>LocationPrevious()
+  try
+    lprev
+  catch /^Vim\%((\a\+)\)\=:E553/
+    llast
+  endtry
+endfunction
+
+function! <SID>LocationNext()
+  try
+    lnext
+  catch /^Vim\%((\a\+)\)\=:E553/
+    lfirst
+  endtry
+endfunction
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " My mappings
@@ -137,3 +165,17 @@ vnoremap > >gv
 
 map <Leader>nn :NERDTreeToggle<CR>
 map <Leader>nf :NERDTreeFind<CR>
+
+map <Leader>w :set wrap!<CR>
+
+map <F6> :SyntasticCheck<CR>
+
+" map <Leader>ll :ll<CR>
+" map <Leader>ln :lnext<CR>
+" map <Leader>lp :lprev<CR>
+" map <Leader>lc :lclose<CR>
+nnoremap <silent> <Plug>LocationPrevious :<C-u>exe 'call <SID>LocationPrevious()'<CR>
+nnoremap <silent> <Plug>LocationNext     :<C-u>exe 'call <SID>LocationNext()'<CR>
+nmap <silent> <Leader>lp <Plug>LocationPrevious
+nmap <silent> <Leader>ln <Plug>LocationNext
+map <Leader>lc :lclose<CR>
