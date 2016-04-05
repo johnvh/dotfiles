@@ -22,12 +22,6 @@ set hls			"highlight all search matches
 set autoindent			"new lines use indent of previous line
 set expandtab
 call SetTabLength(4)
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-"set tabstop=4
-"set shiftwidth=4
-"set softtabstop=4
 set ruler							"always show ruler
 set scrolloff=3						"keep lines visible when scrolling
 set backspace=indent,eol,start		"can backspace to prev line
@@ -154,9 +148,13 @@ endfunction
 " dont conceal json quotes, its annoying
 let g:vim_json_syntax_conceal = 0
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " My mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map <Leader>t2 :call SetTabLength(2)<CR>:IndentLinesReset<CR>
+map <Leader>t4 :call SetTabLength(4)<CR>:IndentLinesReset<CR>
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
