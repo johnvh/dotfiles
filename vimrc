@@ -132,6 +132,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_json_checkers=['jsonlint']
 
 " Fix syntastic error jumping
 function! <SID>LocationPrevious()
@@ -150,6 +151,8 @@ function! <SID>LocationNext()
   endtry
 endfunction
 
+" dont conceal json quotes, its annoying
+let g:vim_json_syntax_conceal = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " My mappings
