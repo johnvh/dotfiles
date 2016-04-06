@@ -1,0 +1,37 @@
+[user]
+  name = John Van Horn
+
+[core]
+  excludesfile = ~/.gitignore.global
+
+[color]
+  # auto - always use color when output to terminal
+  ui = auto
+
+[alias]
+  st = status
+  co = checkout
+  ci = commit
+
+  # show global aliases
+  alias = "!f(){ git config -l --global | grep ^alias;}; f"
+
+  # word-diff
+  wdiff = "diff --word-diff"
+
+  # alias for diff of index
+  ix = "diff --cached"
+  # + word-diff
+  wix = "diff --cached --word-diff"
+
+[merge]
+  #In addition to <<< (yours) and >>> (theirs) markers, adds ||| (original,
+  #parent) marker
+  conflictstyle = diff3
+
+  # custom merge command
+  #tool = gvimdiff3
+  tool = gvimdiff
+
+[rebase]
+  autosquash = true
