@@ -1,27 +1,27 @@
 # Johnvh's dotfiles
 
-Dotfiles, scripts, etc.
+Dotfiles!
 
-Credit to [ryanb](https://github.com/ryanb/dotfiles) for RakeFile and
-structure.
+Structured as packages that are installable using [GNU Stow][stow]. Stow is
+installable on Mac via [homebrew][homebrew] - `brew install stow`.
 
-## Installation
+After stow is installed, install any of the packages (top level directories are
+packages) by passing the dir name to stow:
 
-Download repo:
+```
+# make sure target directory is correct!
+stow --target ~ vim git
+```
 
-	git clone git://github.com/johnvh/dotfiles.git ~/.dotfiles
-	cd ~/.dotfiles
+Or run the install script `install.sh` for preconfigured options:
 
-Install symlinks all declared files. Dry run supported.
+```
+# sets target dir to ~, includes ignore patterns, etc.
+./install.sh vim git
 
-	#dry-run: any arg to install
-	rake install['noo']
-	#install
-	rake install
+# use -n for dry run
+./install.sh -n vim git
+```
 
-Uninstall removes symlinks created by 'install', Dry run supported.
-
-	#dry-run: any arg to clobber
-	rake clobber['noop']
-	#uninstall
-	rake clobber
+[stow]: https://www.gnu.org/software/stow/
+[homebrew]: http://brew.sh/
