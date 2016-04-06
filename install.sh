@@ -3,5 +3,4 @@
 stow -vvv \
   --target ~ \
   --ignore='\.sw[pon]' \
-  --no-folding \
   "$@"
