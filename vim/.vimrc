@@ -4,6 +4,7 @@
 "
 
 "pathogen init
+runtime pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
 " leader key
