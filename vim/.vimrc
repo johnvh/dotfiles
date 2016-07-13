@@ -44,6 +44,8 @@ set wildignore+=*coverage/*
 set modeline
 set modelines=5
 set splitright
+" don't automatically resize splits
+set noequalalways
 
 syntax on "turn on syntax highlight
 syntax enable
@@ -149,6 +151,21 @@ endfunction
 " dont conceal json quotes, its annoying
 let g:vim_json_syntax_conceal = 0
 
+"disable syntastic on a per buffer basis (some work files blow it up)
+function! SyntasticToggleBuffer()
+	let b:syntastic_mode = "passive"
+	SyntasticReset
+	echo 'Syntastic disabled for this buffer'
+endfunction
+
+command! SyntasticToggleBuffer call SyntasticToggleBuffer()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tsuquyomi + syntastic integration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " My mappings
