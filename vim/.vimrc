@@ -192,6 +192,17 @@ map <Leader>w :set wrap!<CR>
 
 map <F6> :SyntasticCheck<CR>
 
+function! JsonToJs()
+    :silent %s/\v"([^""]+)" ?:/\1:/ge
+    :silent %s/\"/'/ge
+endfunction
+
+function! RoboMongoJsonToJs()
+    call JsonToJs()
+    :silent %s/ISODate/new Date/ge
+    :silent %s/\v\s+$//ge
+endfunction
+
 " map <Leader>ll :ll<CR>
 " map <Leader>ln :lnext<CR>
 " map <Leader>lp :lprev<CR>
