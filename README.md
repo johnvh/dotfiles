@@ -18,17 +18,14 @@ Or run the install script `install.sh` for preconfigured options:
 ```
 # sets target dir to ~, includes ignore patterns, etc.
 ./install.sh vim git
-
-# use -n for dry run
-./install.sh -n vim git
 ```
 
-I recommend using [stow's `--no-folding` option][stow-tree-folding] when
-installing the packages bash, binstuff and git. I would recommend letting
-tree-folding do it's thing when installing the vim package, or else you'll end
-up with each file in every plugin bundle symlinked, instead of one symlink for
-the plugin directory.
+## Atom
+
+Post stow install, atom packages need to be installed from
+`atom/.atom/apm-packages.list`: `apm install --packages-file apm-packages.list`.
+
+Update package list: `apm list --installed --bare > apm-packages.list`.
 
 [stow]: https://www.gnu.org/software/stow/
-[stow-tree-folding]: https://www.gnu.org/software/stow/manual/stow.html#Installing-Packages
 [homebrew]: http://brew.sh/
