@@ -1,0 +1,33 @@
+"*":
+  core:
+    disabledPackages: [
+      "atom-ternjs"
+    ]
+    telemetryConsent: "limited"
+    themes: [
+      "one-dark-ui"
+      "solarized-dark-syntax"
+    ]
+  editor:
+    showIndentGuide: true
+    showInvisibles: true
+    tabLength: 4
+    tabType: "soft"
+  "exception-reporting":
+    userId: "65d66b86-f398-58e4-ccfc-14bc892d450a"
+  linter: {}
+  "linter-ui-default":
+    showPanel: true
+  minimap:
+    plugins:
+      "highlight-selected": true
+      "highlight-selectedDecorationsZIndex": 0
+  "prettier-atom":
+    prettierOptions:
+      singleQuote: true
+    useEslint: true
+  "vim-mode-plus":
+    incrementalSearch: true
+    useSmartcaseForSearch: true
+  welcome:
+    showOnStartup: false

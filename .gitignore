@@ -1,3 +1,9 @@
 .vim/.netrwhist
 vim/autoload/pathogen.vim
+atom/.atom/.apm
+atom/.atom/.node-gyp
+atom/.atom/blob-store
+atom/.atom/compile-cache
+atom/.atom/packages
+atom/.atom/storage
 
