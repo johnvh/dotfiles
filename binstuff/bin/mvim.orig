@@ -74,12 +74,6 @@ case "$name" in
 		;;
 esac
 
-tabs=true
-if [ "$1" = "-n" ]
-then
-	tabs=false
-fi
-
 # Last step:  fire up vim.
 # The program should fork by default when started in GUI mode, but it does
 # not; we work around this when this script is invoked as "gvim" or "rgview"
@@ -89,13 +83,7 @@ if [ "$gui" ]; then
 	# terminal instead of the console log.
 	# But if you use open instead, you will need to fully qualify the
 	# path names for any filenames you specify, which is hard.
-	#exec "$binary" -g $opts ${1:+"$@"}
-
-	if $tabs && $binary --serverlist | grep -q "VIM"; then
-		exec "$binary" -g $opts --remote-tab-silent ${1:+"$@"}
-	else
-		exec "$binary" -g $opts ${1:+"$@"}
-	fi
+	exec "$binary" -g $opts ${1:+"$@"}
 else
 	exec "$binary" $opts ${1:+"$@"}
 fi
