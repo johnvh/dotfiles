@@ -1,96 +1,118 @@
-"
-" TODO:
-"   - figure out html w/ embedded js syntax issues
-"
+call plug#begin()
 
-"pathogen init
-runtime pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-pathogen'
+Plug 'tpope/vim-eunuch'
+Plug 'justinmk/vim-dirvish'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ddollar/nerdcommenter'
+" Plug 'pangloss/vim-javascript'
+" Plug 'tpope/vim-markdown'
+Plug 'vim-scripts/Conque-Shell'
+Plug 'tpope/vim-git'
+" Plug 'juvenn/mustache.vim'
+Plug 'kien/ctrlp.vim'
+" Plug 'jinfield/vim-nginx'
+" Plug 'groenewege/vim-less'
+" Plug 'jtratner/vim-flavored-markdown'
+Plug 'bronson/vim-visual-star-search'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'garbas/vim-snipmate'
+" Plug 'cakebaker/scss-syntax.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'moll/vim-node'
+" Plug 'scrooloose/syntastic'
+Plug 'elzr/vim-json'
+Plug 'leafgarland/typescript-vim'
+" Plug 'Shougo/vimproc.vim'
+Plug 'Quramy/tsuquyomi'
+" Plug 'nikvdp/ejs-syntax'
 
-" leader key
+" TODO research:
+" Plug 'Yggdroot/indentLine'
+" vim-ale
+" Plug 'spf13/vim-autoclose'
+
+call plug#end()
+
 let mapleader = ','
 
 function! SetTabLength(length)
-    execute "setl tabstop=".a:length
-    execute "setl shiftwidth=".a:length
-    execute "setl softtabstop=".a:length
+  execute "setl tabstop=".a:length
+  execute "setl shiftwidth=".a:length
+  execute "setl softtabstop=".a:length
 endfunction
 
-set incsearch	"show search results as you type
-set ignorecase	"ignore case in search patterns
-set smartcase	"override ignorecase if pattern contains upper case chars
-set hls			"highlight all search matches
-set autoindent			"new lines use indent of previous line
+nmap <leader>t4 :call SetTabLength(4)<CR>
+nmap <leader>t2 :call SetTabLength(2)<CR>
+
 set expandtab
-call SetTabLength(4)
-set ruler							"always show ruler
-set scrolloff=3						"keep lines visible when scrolling
-set backspace=indent,eol,start		"can backspace to prev line
-set listchars=nbsp:¬,tab:\⋮\ ,trail:-,eol:¶	"show these chars in list mode
-set number							"show line numbers
-set showmatch						"on insert bracket, show matching bracket
-set pastetoggle=<f8>				"make F8 toggle paste/nopaste
-set nowrap							"no soft wrap by default
-set encoding=utf-8					"use utf 8
-set textwidth=80
-set cursorline  "higlight current line
-set exrc            " enable per-directory .vimrc files
-set secure          " disable unsafe commands in local .vimrc files
-set laststatus=2
-set nojoinspaces   " don't double space sentences when using `gq`
-set splitbelow     " open v split under current buffer
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
+set incsearch
+set ignorecase
+set smartcase
+set hls
+set autoindent
+set ruler
+set scrolloff=3 "keep lines visible when scrolling
+set backspace=indent,eol,start
+set listchars=nbsp:¬,tab:\⋮\ ,trail:-,eol:¶
+set number
 set relativenumber
+set showmatch
+set pastetoggle=<f8>
+set nowrap
+set encoding=utf-8
+set textwidth=80
+set cursorline
+set exrc "enable local/per-directory .vimrc files
+set secure "disable unsafe commands in local .vimrc files
+set laststatus=2
+set nojoinspaces "don't double space sentences when using `gq`
+set splitbelow "open v split under current buffer
+set splitright "open h split to right
+set noequalalways "don't automatically resize splits
 set wildignore+=*coverage/*
 set modeline
 set modelines=5
-set splitright
-" don't automatically resize splits
-set noequalalways
 
-syntax on "turn on syntax highlight
-syntax enable
-
-"Stop removing indent from empty lines
-"nnoremap o o<Space><BS>
 "<C-l> clears search too
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-
 
 "disable the F1 help key - always hit it by accident
 map <F1> <Esc>
 imap <F1> <Esc>
 
-filetype plugin indent on
-filetype on
+augroup bash
+  autocmd!
+  "ft=sh for bash fc or ctrl-x ctrl-e
+  autocmd BufRead,BufNewFile bash-fc-* set filetype=sh
+  "dont autowrap for sh
+  autocmd FileType sh set textwidth=0
+augroup END
 
-"set dictionary+=~/.vim/actionscript.vim
-autocmd BufNewFile,BufRead *.as set syntax=actionscript 
+augroup ruby
+  autocmd!
+  autocmd BufRead,BufNewFile {Capfile,capfile,Vagrantfile} set filetype=ruby
+  autocmd FileType e?ruby call SetTabLength(2)
+  autocmd FileType ruby map <F6> :!ruby -c %<CR>
+augroup END
 
-"ft=sh for bash fc or ctrl-x ctrl-e
-au BufRead,BufNewFile bash-fc-* set filetype=sh
-autocmd FileType sh set textwidth=0
+augroup python
+  autocmd BufRead,BufNewFile {fabfile} set filetype=python
+augroup END
 
-"ruby filetype
-au BufRead,BufNewFile {Rakefile,RakeFile,Capfile,capfile,Gemfile,Vagrantfile} set ft=ruby
-au FileType ruby call SetTabLength(2)
-au FileType eruby call SetTabLength(2)
-autocmd FileType ruby map <F6> :!ruby -c %<CR>
-
-"python filetype
-au BufRead,BufNewFile {fabfile} set ft=python
-
-"handlebars filetype => mustache
-au BufRead,BufNewFile {hb,hbs,handlebars} set ft=mustache
-
-"nginx conf
-au BufRead,BufNewFile *nginx.conf* set ft=nginx
-
-au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
-
-"github flavored markdown plugin
-augroup markdown
-    au!
-    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup gitcommit
+  autocmd BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
 augroup END
 
 " NERDTree configuration
