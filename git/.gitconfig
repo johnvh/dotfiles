@@ -1,5 +1,6 @@
 [user]
   name = John Van Horn
+  email = jmvanhorn@gmail.com
 
 [core]
   excludesfile = ~/.gitignore.global
