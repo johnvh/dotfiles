@@ -44,18 +44,18 @@ call plug#end()
 let mapleader = ','
 
 function! SetTabLength(length)
-  execute "setl tabstop=".a:length
-  execute "setl shiftwidth=".a:length
-  execute "setl softtabstop=".a:length
+  execute "setlocal tabstop=".a:length
+  execute "setlocal shiftwidth=".a:length
+  execute "setlocal softtabstop=".a:length
 endfunction
 
 nmap <leader>t4 :call SetTabLength(4)<CR>
 nmap <leader>t2 :call SetTabLength(2)<CR>
 
 set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 
 set incsearch
 set ignorecase
@@ -92,27 +92,20 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 map <F1> <Esc>
 imap <F1> <Esc>
 
-augroup bash
+augroup config
   autocmd!
   "ft=sh for bash fc or ctrl-x ctrl-e
-  autocmd BufRead,BufNewFile bash-fc-* set filetype=sh
+  " autocmd BufRead,BufNewFile bash-fc-* set filetype=sh
   "dont autowrap for sh
-  autocmd FileType sh set textwidth=0
-augroup END
+  " autocmd FileType sh set textwidth=0
 
-augroup ruby
-  autocmd!
-  autocmd BufRead,BufNewFile {Capfile,capfile,Vagrantfile} set filetype=ruby
-  autocmd FileType e?ruby call SetTabLength(2)
-  autocmd FileType ruby map <F6> :!ruby -c %<CR>
-augroup END
+  " autocmd BufRead,BufNewFile {Capfile,capfile,Vagrantfile} set filetype=ruby
+  " autocmd FileType e?ruby call SetTabLength(2)
+  " autocmd FileType ruby map <F6> :!ruby -c %<CR>
 
-augroup python
-  autocmd BufRead,BufNewFile {fabfile} set filetype=python
-augroup END
+  " autocmd BufRead,BufNewFile {fabfile} set filetype=python
 
-augroup gitcommit
-  autocmd BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
+  " autocmd BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
 augroup END
 
 " NERDTree configuration
