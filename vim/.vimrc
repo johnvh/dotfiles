@@ -22,9 +22,9 @@ Plug 'moll/vim-node'
 Plug 'elzr/vim-json'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
+Plug 'yggdroot/indentline'
 
 " TODO research:
-" Plug 'Yggdroot/indentLine'
 " vim-ale
 " Plug 'spf13/vim-autoclose'
 
@@ -63,6 +63,7 @@ set modeline
 set modelines=5
 
 set background=dark
+set t_Co=256
 colorscheme solarized
 
 " extended % matching
@@ -187,6 +188,9 @@ function! SetTabLength(length)
   execute "setlocal tabstop=".a:length
   execute "setlocal shiftwidth=".a:length
   execute "setlocal softtabstop=".a:length
+  if exists(":IndentLinesReset")
+    execute "IndentLinesReset"
+  endif
 endfunction
 
 " include ~/.vimrc.local if found for local overrides
