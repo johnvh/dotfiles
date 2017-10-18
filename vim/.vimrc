@@ -24,6 +24,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'yggdroot/indentline'
 Plug 'w0rp/ale'
+Plug 'chriskempson/base16-vim'
 
 " TODO research:
 " vim-ale
@@ -66,6 +67,8 @@ set modelines=5
 set background=dark
 set t_Co=256
 colorscheme solarized
+" let base16colorspace=256
+" colorscheme base16-default-dark
 
 " extended % matching
 runtime macros/matchit.vim
