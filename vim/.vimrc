@@ -23,6 +23,7 @@ Plug 'elzr/vim-json'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'yggdroot/indentline'
+Plug 'w0rp/ale'
 
 " TODO research:
 " vim-ale
@@ -113,17 +114,8 @@ nnoremap <Leader>nf :NERDTreeFind<CR>
 
 " map <Leader>w :set wrap!<CR>
 
-nnoremap <F6> :SyntasticCheck<CR>
-
-" map <Leader>ll :ll<CR>
-" map <Leader>ln :lnext<CR>
-" map <Leader>lp :lprev<CR>
-" map <Leader>lc :lclose<CR>
-nnoremap <silent> <Plug>LocationPrevious :<C-u>exe 'call <SID>LocationPrevious()'<CR>
-nnoremap <silent> <Plug>LocationNext     :<C-u>exe 'call <SID>LocationNext()'<CR>
-nnoremap <silent> <Leader>lp <Plug>LocationPrevious
-nnoremap <silent> <Leader>ln <Plug>LocationNext
-nnoremap <Leader>lc :lclose<CR>
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 
 " =========================================================================== "
 " plugin settings
@@ -138,47 +130,19 @@ let g:indentLine_char = '¦'
 " dont conceal json quotes, its annoying
 let g:vim_json_syntax_conceal = 0
 
-" syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_json_checkers=['jsonlint']
-
-" Fix syntastic error jumping
-function! <SID>LocationPrevious()
-  try
-    lprev
-  catch /^Vim\%((\a\+)\)\=:E553/
-    llast
-  endtry
-endfunction
-
-function! <SID>LocationNext()
-  try
-    lnext
-  catch /^Vim\%((\a\+)\)\=:E553/
-    lfirst
-  endtry
-endfunction
-
-"disable syntastic on a per buffer basis (some work files blow it up)
-function! SyntasticToggleBuffer()
-  let b:syntastic_mode = "passive"
-  SyntasticReset
-  echo 'Syntastic disabled for this buffer'
-endfunction
-
-command! SyntasticToggleBuffer call SyntasticToggleBuffer()
-
 " tsuquyomi + syntastic integration
 let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi']
+" let g:syntastic_typescript_checkers = ['tsuquyomi']
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\}
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 
 " =========================================================================== "
 " other
