@@ -41,8 +41,6 @@ Plug 'Quramy/tsuquyomi'
 
 call plug#end()
 
-
-
 " =========================================================================== "
 " options
 " =========================================================================== "
@@ -87,12 +85,6 @@ runtime macros/matchit.vim
 
 let mapleader = ','
 
-function! SetTabLength(length)
-  execute "setlocal tabstop=".a:length
-  execute "setlocal shiftwidth=".a:length
-  execute "setlocal softtabstop=".a:length
-endfunction
-
 nnoremap <leader>src :source $MYVIMRC<CR>
 
 nnoremap <leader>t4 :call SetTabLength(4)<CR>
@@ -111,15 +103,12 @@ nmap <leader>/ <plug>NERDCommenterToggle<CR>
 vmap <leader>/ <plug>NERDCommenterToggle<CR>
 imap <leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 
-nnoremap <Leader>ig :IndentLinesToggle<CR>
+"nnoremap <Leader>ig :IndentLinesToggle<CR>
 
 " vim-snipmate trigger
 inoremap <D-'> <esc>a<Plug>snipMateNextOrTrigger
 snoremap <D-'> <Plug>snipMateNextOrTrigger
 inoremap <Leader>ss <esc>a<Plug>snipMateShow
-
-"nnoremap <Leader>t2 :call SetTabLength(2)<CR>:IndentLinesReset<CR>
-"nnoremap <Leader>t4 :call SetTabLength(4)<CR>:IndentLinesReset<CR>
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
@@ -200,6 +189,16 @@ command! SyntasticToggleBuffer call SyntasticToggleBuffer()
 " tsuquyomi + syntastic integration
 let g:tsuquyomi_disable_quickfix = 1
 let g:syntastic_typescript_checkers = ['tsuquyomi']
+
+" =========================================================================== "
+" other
+" =========================================================================== "
+
+function! SetTabLength(length)
+  execute "setlocal tabstop=".a:length
+  execute "setlocal shiftwidth=".a:length
+  execute "setlocal softtabstop=".a:length
+endfunction
 
 " include ~/.vimrc.local if found for local overrides
 if filereadable(expand("~/.vimrc.local"))
