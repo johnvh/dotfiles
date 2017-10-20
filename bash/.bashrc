@@ -17,6 +17,9 @@ export XMLLINT_INDENT='	'
 # always grep w/ color
 export GREP_OPTIONS='--color=auto'
 
+# fzf runs this by default, assumes ripgrep
+export FZF_DEFAULT_COMMAND='rg --files'
+
 source ~/bin/setprompt
 setprompt
 

@@ -8,7 +8,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'ddollar/nerdcommenter'
 Plug 'vim-scripts/Conque-Shell'
 Plug 'tpope/vim-git'
-Plug 'kien/ctrlp.vim'
 Plug 'bronson/vim-visual-star-search'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
@@ -25,6 +24,9 @@ Plug 'Quramy/tsuquyomi'
 Plug 'yggdroot/indentline'
 Plug 'w0rp/ale'
 Plug 'chriskempson/base16-vim'
+" assumes fzf brew installed
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " TODO research:
 " vim-ale
@@ -119,6 +121,8 @@ nnoremap <Leader>nf :NERDTreeFind<CR>
 
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+
+nnoremap <C-p> :Files<CR>
 
 " =========================================================================== "
 " plugin settings
