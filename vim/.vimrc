@@ -3,6 +3,8 @@ call plug#begin()
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'justinmk/vim-dirvish'
 Plug 'altercation/vim-colors-solarized'
 Plug 'ddollar/nerdcommenter'
