@@ -67,6 +67,7 @@ set noequalalways "don't automatically resize splits
 set wildignore+=*coverage/*
 set modeline
 set modelines=5
+set lazyredraw
 
 set background=dark
 set t_Co=256
