@@ -70,8 +70,8 @@ set modelines=5
 set lazyredraw
 
 set background=dark
-set t_Co=256
-colorscheme solarized
+"set t_Co=256
+"colorscheme solarized
 " let base16colorspace=256
 " colorscheme base16-default-dark
 
