@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # append to history on exit
-shopt -s histappend				
+shopt -s histappend
 
 PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
 export PATH
@@ -11,7 +11,7 @@ export HISTFILE=~/.bash_history
 # dont history dupes, or command that start with space
 export HISTCONTROL=erasedups:ignorespace
 # save lots of history
-export HISTSIZE=10000			
+export HISTSIZE=10000
 # xmllint --format indent char
 export XMLLINT_INDENT='	'
 # always grep w/ color
@@ -29,7 +29,7 @@ alias cal='cal | grep -C6 --color -e " $(date +%e)" -e "^(date +%e)"';
 alias s='svn stat --ignore-externals .'
 
 if [ -f ~/.bashrc.local ]; then
-	source ~/.bashrc.local
+  source ~/.bashrc.local
 fi
 
 if [ -f $(brew --prefix 2> /dev/null)/etc/bash_completion ]; then
@@ -43,23 +43,23 @@ fi
 # print $PATH
 path () { echo $PATH; }
 
-path_append () { 
-    path_remove "$1"
-    export PATH="$PATH:$1"
+path_append () {
+  path_remove "$1"
+  export PATH="$PATH:$1"
 }
 
-path_prepend () { 
-    path_remove "$1"
-    export PATH="$1:$PATH"
+path_prepend () {
+  path_remove "$1"
+  export PATH="$1:$PATH"
 }
 
 path_remove () {
-    export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`
+  export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`
 }
 
 # removes 1st part from path
 path_shift () {
-    export PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: 'FNR>1' | sed 's/:$//')
+  export PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: 'FNR>1' | sed 's/:$//')
 }
 
 # prepends $PWD/node_modules/.bin on $PATH
