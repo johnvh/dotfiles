@@ -85,6 +85,7 @@ runtime macros/matchit.vim
 let mapleader = ','
 
 nnoremap <leader>src :source $MYVIMRC<CR>
+nnoremap <leader>ee :new $MYVIMRC<CR>
 
 nnoremap <leader>t4 :call SetTabLength(4)<CR>
 nnoremap <leader>t2 :call SetTabLength(2)<CR>
