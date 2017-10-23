@@ -26,6 +26,8 @@ Plug 'Quramy/tsuquyomi'
 Plug 'yggdroot/indentline'
 Plug 'w0rp/ale'
 Plug 'chriskempson/base16-vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'benmills/vimux'
 " assumes fzf brew installed
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -90,8 +92,8 @@ nnoremap <leader>ee :new $MYVIMRC<CR>
 nnoremap <leader>t4 :call SetTabLength(4)<CR>
 nnoremap <leader>t2 :call SetTabLength(2)<CR>
 
-"<C-l> clears search too
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+" clear search
+nnoremap <silent> <leader>l :noh<CR>
 
 "disable the F1 help key - always hit it by accident
 map <F1> <Esc>
@@ -127,6 +129,9 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 
 nnoremap <C-p> :Files<CR>
+
+nnoremap <leader>tc :VimuxPromptCommand<CR>
+nnoremap <leader>tl :VimuxRunLastCommand<CR>
 
 " =========================================================================== "
 " plugin settings
