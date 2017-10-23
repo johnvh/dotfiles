@@ -32,9 +32,8 @@ if [ -f ~/.bashrc.local ]; then
 	source ~/.bashrc.local
 fi
 
-PREFIX=$(brew --prefix 2> /dev/null)
-if [ -f $PREFIX/etc/bash_completion ]; then
-  . $PREFIX/etc/bash_completion
+if [ -f $(brew --prefix 2> /dev/null)/etc/bash_completion ]; then
+  . $(brew --prefix 2> /dev/null)/etc/bash_completion
 fi
 
 # path functions...
