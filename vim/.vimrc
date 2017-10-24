@@ -28,6 +28,13 @@ Plug 'w0rp/ale'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
+
+" text objects
+Plug 'kana/vim-textobj-user'
+" FIXME these both register the txtobj 'c'
+Plug 'poetic/vim-textobj-javascript'
+Plug 'glts/vim-textobj-comment'
+
 " assumes fzf brew installed
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
