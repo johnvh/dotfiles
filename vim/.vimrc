@@ -28,6 +28,7 @@ Plug 'w0rp/ale'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
+Plug 'raimondi/delimitmate'
 
 " text objects
 Plug 'kana/vim-textobj-user'
