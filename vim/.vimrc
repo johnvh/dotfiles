@@ -133,16 +133,14 @@ vnoremap > >gv
 nnoremap <Leader>nn :NERDTreeToggle<CR>
 nnoremap <Leader>nf :NERDTreeFind<CR>
 
-" map <Leader>w :set wrap!<CR>
-
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-
 nnoremap <C-p> :Files<CR>
 
 nnoremap <leader>tc :VimuxPromptCommand<CR>
 nnoremap <leader>tl :VimuxRunLastCommand<CR>
 nnoremap <leader>ww :w<CR>:VimuxRunLastCommand<CR>
+
+nmap [ll <Plug>(ale_previous_wrap)
+nmap ]ll <Plug>(ale_next_wrap)
 
 " =========================================================================== "
 " plugin settings
