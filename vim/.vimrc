@@ -93,6 +93,9 @@ runtime macros/matchit.vim
 
 let mapleader = ','
 
+
+nnoremap Y y$
+
 nnoremap <leader>src :source $MYVIMRC<CR>
 nnoremap <leader>ee :new $MYVIMRC<CR>
 
@@ -139,6 +142,7 @@ nnoremap <C-p> :Files<CR>
 
 nnoremap <leader>tc :VimuxPromptCommand<CR>
 nnoremap <leader>tl :VimuxRunLastCommand<CR>
+nnoremap <leader>ww :w<CR>:VimuxRunLastCommand<CR>
 
 " =========================================================================== "
 " plugin settings
