@@ -18,7 +18,7 @@ export XMLLINT_INDENT='	'
 export GREP_OPTIONS='--color=auto'
 
 # fzf runs this by default, assumes ripgrep
-export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/*'"
 
 source ~/bin/setprompt
 setprompt
