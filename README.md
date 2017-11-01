@@ -27,5 +27,13 @@ Post stow install, atom packages need to be installed from
 
 Update package list: `apm list --installed --bare > apm-packages.list`.
 
+## Neovim
+
+Python support: see
+https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim . The
+neovim `init.vim` assumes python interpreters live at
+`/usr/local/bin/python{2,3}`.
+
+
 [stow]: https://www.gnu.org/software/stow/
 [homebrew]: http://brew.sh/
