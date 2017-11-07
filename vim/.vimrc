@@ -78,6 +78,7 @@ set wildignore+=*coverage/*
 set modeline
 set modelines=5
 set lazyredraw
+set autoread
 
 set background=dark
 "set t_Co=256
@@ -188,6 +189,10 @@ let g:airline_mode_map = {
 " =========================================================================== "
 " other
 " =========================================================================== "
+
+augroup autochecktime
+  autocmd CursorHold,CursorHoldI * checktime
+augroup END
 
 function! SetTabLength(length)
   execute "setlocal tabstop=".a:length
