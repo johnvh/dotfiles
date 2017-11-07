@@ -29,6 +29,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 Plug 'raimondi/delimitmate'
+Plug 'sbdchd/neoformat'
 
 " text objects
 Plug 'kana/vim-textobj-user'
@@ -143,6 +144,8 @@ nnoremap <leader>ww :w<CR>:VimuxRunLastCommand<CR>
 
 nmap [ll <Plug>(ale_previous_wrap)
 nmap ]ll <Plug>(ale_next_wrap)
+
+vnoremap <leader>f :Neoformat<Cr>
 
 " =========================================================================== "
 " plugin settings
