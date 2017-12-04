@@ -137,6 +137,7 @@ nnoremap <Leader>nn :NERDTreeToggle<CR>
 nnoremap <Leader>nf :NERDTreeFind<CR>
 
 nnoremap <C-p> :Files<CR>
+nnoremap <leader>b :Buffers<CR>
 
 nnoremap <leader>tc :VimuxPromptCommand<CR>
 nnoremap <leader>tl :VimuxRunLastCommand<CR>
