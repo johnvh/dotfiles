@@ -39,9 +39,46 @@ fi
 
 [[ ! -d ~/.config ]] && mkdir ~/.config
 
+#######################
+# base16 stuff
+#######################
+
 [[ ! -d ~/.config/base16-shell ]] && git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 BASE16_SHELL=$HOME/.config/base16-shell
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+_base16_current () {
+  echo "base16-${BASE16_THEME#base16-}"
+}
+_base16_list () {
+  \ls -1 ${BASE16_SHELL}/scripts/ | sed 's/.sh$//'
+}
+_base16_choose () {
+  _base16_list | ruby -e '
+    all = $stdin.readlines.collect &:chomp
+    # BASE16_THEME from env initally prefixed with "base16-", but not after switching
+    current = "base16-" + ENV["BASE16_THEME"].sub(/^base16-/, "")
+    next_n = ARGV.first.to_i
+    next_idx = all.index(current) + next_n
+    # $stderr.puts ARGV.inspect
+    # $stderr.puts next_n
+    puts all[next_idx % all.length].sub("-", "_")  # function is named base16_<color-theme>
+  ' -- "$1"
+}
+_base16_next () {
+  local theme=$(_base16_choose 1)
+  echo $theme
+  eval $theme
+}
+_base16_prev () {
+  local theme=$(_base16_choose -1)
+  echo $theme
+  eval $theme
+}
+
+#######################
+# /base16 stuff
+#######################
 
 # path functions...
 # append, prepend, remove stolen from:
