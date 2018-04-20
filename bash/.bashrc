@@ -76,6 +76,20 @@ _base16_prev () {
   eval $theme
 }
 
+_base16_select () {
+  # TODO: change themes on fzf move? `fzf ... --preview='bash -lc "eval {}"'` is pretty close
+  local theme=$(_base16_list \
+    | ruby -e '
+        current = "base16-" + ENV["BASE16_THEME"].sub(/^base16-/, "")
+        all = $stdin.readlines.collect(&:chomp) - [current]
+        puts [current].concat(all).collect { |t| t.sub "base16-", "base16_" }
+      ' \
+    | fzf --cycle --height=10
+  )
+  echo $theme
+  eval $theme
+}
+
 #######################
 # /base16 stuff
 #######################
