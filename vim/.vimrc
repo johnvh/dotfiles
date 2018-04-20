@@ -82,11 +82,18 @@ set modelines=5
 set lazyredraw
 set autoread
 
-set background=dark
+" set background=dark
 "set t_Co=256
 "colorscheme solarized
 " let base16colorspace=256
 " colorscheme base16-default-dark
+" colorscheme base16-3024
+" colorscheme base16-harmonic-dark
+
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
 " extended % matching
 runtime macros/matchit.vim

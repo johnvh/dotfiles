@@ -36,6 +36,13 @@ if [ -f $(brew --prefix 2> /dev/null)/etc/bash_completion ]; then
   . $(brew --prefix 2> /dev/null)/etc/bash_completion
 fi
 
+
+[[ ! -d ~/.config ]] && mkdir ~/.config
+
+[[ ! -d ~/.config/base16-shell ]] && git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+BASE16_SHELL=$HOME/.config/base16-shell
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
 # path functions...
 # append, prepend, remove stolen from:
 # http://stackoverflow.com/questions/370047/what-is-the-most-elegant-way-to-remove-a-path-from-the-path-variable-in-bash
