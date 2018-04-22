@@ -50,9 +50,43 @@ BASE16_SHELL=$HOME/.config/base16-shell
 _base16_current () {
   echo "base16-${BASE16_THEME#base16-}"
 }
+
 _base16_list () {
-  \ls -1 ${BASE16_SHELL}/scripts/ | sed 's/.sh$//'
+  local prefer=${BASE16_PREFER-all}
+  local all=$(\ls -1 ${BASE16_SHELL}/scripts/ | sed 's/.sh$//')
+  case $prefer in
+    all)
+      echo "$all"
+      ;;
+    dark|light)
+      echo "$all" | ruby -e '
+        dark = ARGV.first == "dark"
+        $stderr.puts "dark? #{dark}"
+        puts $stdin.readlines
+          .collect { |fn|
+            fn.chomp!
+            {
+              name: fn,
+              bg: File.readlines(ENV["HOME"] + "/.config/base16-shell/scripts/" + fn + ".sh")
+                .find { |l| l =~ /^color_background/ }
+                .match(/="([^"]+)"/)[1]
+                .gsub("/", "")
+                .to_i(16)
+            }
+          }
+          .find_all { |bg:, **|
+            is_dark = (0xFF_FF_FF - bg) > bg
+            dark ? is_dark : !is_dark
+          }
+          .collect { |d| d[:name] }
+      ' -- $prefer
+      ;;
+    *)
+      echo "dont know BASE16_PREFER" "$BASE16_PREFER" >&2
+      ;;
+  esac
 }
+
 _base16_choose () {
   _base16_list | ruby -e '
     all = $stdin.readlines.collect &:chomp
@@ -65,11 +99,13 @@ _base16_choose () {
     puts all[next_idx % all.length].sub("-", "_")  # function is named base16_<color-theme>
   ' -- "$1"
 }
+
 _base16_next () {
   local theme=$(_base16_choose 1)
   echo $theme
   eval $theme
 }
+
 _base16_prev () {
   local theme=$(_base16_choose -1)
   echo $theme
