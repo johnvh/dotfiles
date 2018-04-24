@@ -112,6 +112,15 @@ _base16_prev () {
   eval $theme
 }
 
+_base16_random () {
+  local theme=$(_base16_list | ruby -e '
+    all = $stdin.readlines
+    puts all.sample.chomp.sub("-", "_")
+  ')
+  echo $theme
+  eval $theme
+}
+
 _base16_select () {
   # TODO: change themes on fzf move? `fzf ... --preview='bash -lc "eval {}"'` is pretty close
   local theme=$(_base16_list \
