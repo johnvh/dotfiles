@@ -151,6 +151,9 @@ nnoremap <leader>tc :VimuxPromptCommand<CR>
 nnoremap <leader>tl :VimuxRunLastCommand<CR>
 nnoremap <leader>ww :w<CR>:VimuxRunLastCommand<CR>
 nnoremap <leader>tt :silent exec "!_tmux_exit_copy_mode > /dev/null 2>&1"<CR>
+nnoremap <leader>tv0 :let g:VimuxRunnerIndex=0<CR>
+nnoremap <leader>tv1 :let g:VimuxRunnerIndex=1<CR>
+nnoremap <leader>tv2 :let g:VimuxRunnerIndex=2<CR>
 
 nmap [ll <Plug>(ale_previous_wrap)
 nmap ]ll <Plug>(ale_next_wrap)
