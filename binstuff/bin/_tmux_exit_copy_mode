@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-for p in $(tmux list-panes -F '#{pane in_mode} #P'); do
-    echo pane $p
-    tmux send-keys -t $p -X cancel
-done
