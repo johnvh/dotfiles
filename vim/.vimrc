@@ -17,14 +17,22 @@ Plug 'maximbaz/lightline-ale'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
+else
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+  Plug 'leafgarland/typescript-vim'
+  Plug 'Quramy/tsuquyomi'
+endif
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'othree/javascript-libraries-syntax.vim'
+
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'garbas/vim-snipmate'
 Plug 'scrooloose/nerdtree'
 Plug 'moll/vim-node'
 Plug 'elzr/vim-json'
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
 Plug 'yggdroot/indentline'
 Plug 'w0rp/ale'
 Plug 'chriskempson/base16-vim'
@@ -42,6 +50,8 @@ Plug 'glts/vim-textobj-comment'
 " assumes fzf brew installed
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+
+Plug 'vim-scripts/confluencewiki.vim'
 
 " TODO research:
 " vim-ale
@@ -82,6 +92,7 @@ set modeline
 set modelines=5
 set lazyredraw
 set autoread
+set grepprg=rg\ --vimgrep
 
 " set background=dark
 "set t_Co=256
@@ -161,6 +172,9 @@ nmap ]ll <Plug>(ale_next_wrap)
 
 vnoremap <leader>f :Neoformat<Cr>
 
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+
 " =========================================================================== "
 " plugin settings
 " =========================================================================== "
@@ -231,6 +245,11 @@ let g:lightline = {
 \ }
 
 let g:vim_markdown_conceal = 0
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_debug = 1
+let g:deoplete#enable_profile = 1
+" call deoplete#enable_logging('DEBUG', '/PATH_TO/deoplete.log')
 
 " =========================================================================== "
 " other
