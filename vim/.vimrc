@@ -12,7 +12,8 @@ Plug 'ddollar/nerdcommenter'
 Plug 'vim-scripts/Conque-Shell'
 Plug 'tpope/vim-git'
 Plug 'bronson/vim-visual-star-search'
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'bronson/vim-trailing-whitespace'
@@ -183,24 +184,51 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \}
-let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
-" airline mode one letter
-let g:airline_mode_map = {
-\ '__' : '-',
-\ 'n'  : 'N',
-\ 'i'  : 'I',
-\ 'R'  : 'R',
-\ 'c'  : 'C',
-\ 'v'  : 'V',
-\ 'V'  : 'V',
-\ '^V' : 'V',
-\ 's'  : 'S',
-\ 'S'  : 'S',
-\ '^S' : 'S',
-\}
+let g:lightline = {
+  \ 'active': {
+  \   'left': [
+  \     ['mode', 'paste'],
+  \     ['readonly', 'gitbranch', 'filename', 'modified']
+  \   ],
+  \   'right': [
+  \     ['lineinfo'],
+  \     ['percent'],
+  \     ['fileformat', 'fileencoding', 'filetype'],
+  \     ['linter_errors', 'linter_warnings']
+  \   ]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'fugitive#head'
+  \ },
+  \ 'component_expand': {
+  \   'linter_checking': 'lightline#ale#checking',
+  \   'linter_warnings': 'lightline#ale#warnings',
+  \   'linter_errors': 'lightline#ale#errors',
+  \   'linter_ok': 'lightline#ale#ok',
+  \ },
+  \ 'component_type': {
+  \   'linter_checking': 'left',
+  \   'linter_warnings': 'warning',
+  \   'linter_errors': 'error',
+  \   'linter_ok': 'left',
+  \ },
+  \ 'mode_map': {
+  \   'n' : 'N',
+  \   'i' : 'I',
+  \   'R' : 'R',
+  \   'v' : 'v',
+  \   'V' : 'V',
+  \   "\<C-v>": '^V',
+  \   'c' : 'C',
+  \   's' : 's',
+  \   'S' : 'S',
+  \   "\<C-s>": '^S',
+  \   't': 'T',
+  \ }
+\ }
 
 let g:vim_markdown_conceal = 0
 
