@@ -40,6 +40,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 Plug 'raimondi/delimitmate'
 Plug 'sbdchd/neoformat'
+Plug 'depuracao/vim-rdoc'
 
 " text objects
 Plug 'kana/vim-textobj-user'
