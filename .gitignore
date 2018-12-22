@@ -1,6 +1,6 @@
 vim/.vim/.netrwhist
-vim/autoload/pathogen.vim
-vim/.vim/plugged
+vim/.vim/plugged/*
+!vim/.vim/plugged/notes
 atom/.atom/.apm
 atom/.atom/.node-gyp
 atom/.atom/blob-store

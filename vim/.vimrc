@@ -54,6 +54,8 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'vim-scripts/confluencewiki.vim'
 
+Plug '~/.vim/plugged/notes'
+
 " TODO research:
 " vim-ale
 " Plug 'spf13/vim-autoclose'
