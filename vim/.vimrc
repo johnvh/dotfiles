@@ -9,7 +9,6 @@ Plug 'tpope/vim-repeat'
 Plug 'justinmk/vim-dirvish'
 Plug 'altercation/vim-colors-solarized'
 Plug 'ddollar/nerdcommenter'
-Plug 'vim-scripts/Conque-Shell'
 Plug 'tpope/vim-git'
 Plug 'bronson/vim-visual-star-search'
 Plug 'itchyny/lightline.vim'
@@ -56,10 +55,6 @@ Plug 'vim-scripts/confluencewiki.vim'
 
 Plug '~/.vim/plugged/notes'
 
-" TODO research:
-" vim-ale
-" Plug 'spf13/vim-autoclose'
-
 call plug#end()
 
 " =========================================================================== "
@@ -96,14 +91,6 @@ set modelines=5
 set lazyredraw
 set autoread
 set grepprg=rg\ --vimgrep
-
-" set background=dark
-"set t_Co=256
-"colorscheme solarized
-" let base16colorspace=256
-" colorscheme base16-default-dark
-" colorscheme base16-3024
-" colorscheme base16-harmonic-dark
 
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
