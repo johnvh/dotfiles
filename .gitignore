@@ -1,6 +1,7 @@
 vim/.vim/.netrwhist
 vim/.vim/plugged/*
 !vim/.vim/plugged/notes
+!vim/.vim/plugged/x12
 atom/.atom/.apm
 atom/.atom/.node-gyp
 atom/.atom/blob-store

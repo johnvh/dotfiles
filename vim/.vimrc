@@ -54,6 +54,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-scripts/confluencewiki.vim'
 
 Plug '~/.vim/plugged/notes'
+Plug '~/.vim/plugged/x12'
 
 call plug#end()
 
