@@ -40,6 +40,7 @@ Plug 'benmills/vimux'
 Plug 'raimondi/delimitmate'
 Plug 'sbdchd/neoformat'
 Plug 'depuracao/vim-rdoc'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 " text objects
 Plug 'kana/vim-textobj-user'
@@ -170,6 +171,8 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " plugin settings
 " =========================================================================== "
 
+let g:polyglot_disabled = ['markdown']
+
 " NERDTree configuration
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 
@@ -237,6 +240,7 @@ let g:lightline = {
 \ }
 
 let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_debug = 1
