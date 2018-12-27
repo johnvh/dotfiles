@@ -2,7 +2,7 @@
 " Maintainer: John Vh <jmvanhorn@gmail.com>
 
 function! s:notesDir()
-  let dir = empty($VIM_NOTES_DIR) ? fnameescape($HOME . '/notes') : fnameescape($VIM_NOTES_DIR)
+  let dir = empty($VIM_NOTES_DIR) ? $HOME . '/notes' : $VIM_NOTES_DIR
   if !isdirectory(dir)
     call mkdir(dir, 'p')
   end
