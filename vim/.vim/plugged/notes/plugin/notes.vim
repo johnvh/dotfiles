@@ -17,10 +17,14 @@ function! s:mondayHeadline()
   return "# Week of " . s:monday()
 endfunction
 
+function! s:newFileContents()
+  return [s:mondayHeadline(), '', '<!-- vim: set nospell: -->']
+endfunction
+
 function! s:notes() abort
   let fn = s:notesDir() . '/' . s:monday() . '.md'
   if !filereadable(fn)
-    call writefile([s:mondayHeadline(), ''], fn)
+    call writefile(s:newFileContents(), fn)
   end
   execute ":edit " . fn
 endfunction
