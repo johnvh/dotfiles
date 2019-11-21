@@ -321,13 +321,15 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " plugin settings
 " =========================================================================== "
 
-let g:polyglot_disabled = ['markdown']
+let g:polyglot_disabled = ['markdown', 'ruby']
 
 " NERDTree configuration
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 
 " For indentLine
-let g:indentLine_char = '¦'
+" let g:indentLine_char = '¦'
+let g:indentLine_char_list = ['⁝', '│']
+" let g:indentLine_char_list = ['⁝', '¦', , '┊', '', '│']
 
 " dont conceal json quotes, its annoying
 let g:vim_json_syntax_conceal = 0
