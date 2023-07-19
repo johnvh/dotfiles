@@ -64,11 +64,19 @@ require("lazy").setup({
   'lukas-reineke/indent-blankline.nvim',
 })
 
+-- vim.cmd [[highlight IndentBlanklineIndent1 ctermfg=white 333333 gui=nocombine]]
+
 require("indent_blankline").setup {
   -- for example, context is off by default, use this to turn it on
   show_current_context = true,
   show_current_context_start = true,
-  char = '⁚'
+  show_trailing_blankline_indent = false,
+  char = '⁚',
+  char_list_blankline = {''},
+  blankline_char = '',
+  show_first_indent_level = false,
+  char_highlight_list = { "IndentBlanklineIndent1" },
+  space_char_highlight_list = { "IndentBlanklineIndent1" },
 }
 
 
