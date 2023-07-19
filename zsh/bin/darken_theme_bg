@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'color', '~> 1'
+end
+
+require 'pathname'
+
+tt_home = Pathname.new '/Users/jvanhorn/.config/tinted-theming'
+b16_home = Pathname.new '/Users/jvanhorn/.config/base16-shell'
+
+raise "doesnt exist: #{tt_home}" unless tt_home.exist?
+raise "doesnt exist: #{b16_home}" unless b16_home.exist?
+
+current_theme_name = tt_home./('theme_name').read.strip
+current_theme_file = b16_home./("scripts/base16-#{current_theme_name}.sh")
+dry_run = ARGV.include?("-d")
+
+puts current_theme_file
+puts "dry run? #{dry_run}"
+
+# background: base 00
+# foreground: base 05
+
+
+# extract bg line in theme file 
+#   color00="17/19/1e" # Base 00 - Black
+bg_ln = current_theme_file.readlines.grep(/color00="/i)&.first
+bg_m = bg_ln&.match(/color00="([0-9a-f]+)\/([0-9a-f]+)\/([0-9a-f]+)/i)&.to_a
+bg = [bg_m[1], bg_m[2], bg_m[3]]
+p bg
