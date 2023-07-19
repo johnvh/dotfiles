@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+# extracts an x509 certificate from an xml document, and prints it in PEM format
+# Usage: 
+#   curl -s https://member.teladoc.com/saml/metadata/sp | xml_extract_cert
+#   xml_extract_cert file.xml
+
+require 'rexml/document'
+require 'rexml/xpath'
+require 'openssl'
+require 'base64'
+
+doc = REXML::Document.new(ARGF.read)
+
+cert_containers = REXML::XPath.match(doc.root, '//*[local-name()="KeyDescriptor"]')
+cert_container = cert_containers.find do |node|
+  node.attribute('use')&.value&.downcase == 'signing'
+end
+cert_container ||= cert_containers.first
+
+cert_node = REXML::XPath.first(cert_container, '//*[local-name()="X509Certificate"]')
+
+if !cert_node
+  $stderr.puts 'no cert found'
+  exit 1
+end
+
+cert = OpenSSL::X509::Certificate.new(Base64.decode64(cert_node.text));
+puts cert.to_s
