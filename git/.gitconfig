@@ -4,6 +4,15 @@
 
 [core]
   excludesfile = ~/.gitignore.global
+  pager = delta
+
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  light = false
+  ; line-numbers = true
+
+[diff]
+  colorMoved = default
 
 [color]
   # auto - always use color when output to terminal
@@ -13,6 +22,7 @@
   st = status
   co = checkout
   ci = commit
+  f = fetch --prune
 
   # show global aliases
   alias = "!f(){ git config -l --global | grep ^alias;}; f"
