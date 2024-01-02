@@ -4,7 +4,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- if visual selection color too dark:
+--   :hi Visual term=reverse cterm=reverse
+
+vim.g.do_filetype_lua = 1
 vim.g.mapleader = ","
+vim.g.polyglot_disabled = { 'markdown', 'ruby' }
 
 require("lazy").setup({
   -- {dir = '/usr/local/opt/fzf'},
@@ -36,7 +41,6 @@ require("lazy").setup({
   'tpope/vim-rails',
   'vim-ruby/vim-ruby',
   -- Plug 'bronson/vim-trailing-whitespace'
-  -- Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   -- Plug 'MarcWeber/vim-addon-mw-utils'
   -- Plug 'garbas/vim-snipmate'
@@ -47,7 +51,7 @@ require("lazy").setup({
   -- Plug 'w0rp/ale'
   -- Plug 'chriskempson/base16-vim'
   'christoomey/vim-tmux-navigator',
-  'benmills/vimux',
+  'preservim/vimux',
   -- Plug 'raimondi/delimitmate'
   -- Plug 'sbdchd/neoformat'
   -- Plug 'depuracao/vim-rdoc'
@@ -59,9 +63,92 @@ require("lazy").setup({
   -- Plug 'poetic/vim-textobj-javascript'
   -- Plug 'glts/vim-textobj-comment'
 
-  -- 'tinted-theming/base16-vim'
+  { 'lukas-reineke/indent-blankline.nvim', tag = 'v2.20.8' },
 
-  'lukas-reineke/indent-blankline.nvim',
+  'tinted-theming/base16-vim',
+
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip',
+    },
+    config = function()
+      local cmp = require'cmp'
+
+      cmp.setup({
+        snippet = {
+          -- REQUIRED - you must specify a snippet engine
+          expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+          end,
+        },
+        window = {
+          -- completion = cmp.config.window.bordered(),
+          -- documentation = cmp.config.window.bordered(),
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        }),
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'vsnip' }, -- For vsnip users.
+          -- { name = 'luasnip' }, -- For luasnip users.
+          -- { name = 'ultisnips' }, -- For ultisnips users.
+          -- { name = 'snippy' }, -- For snippy users.
+        }, {
+          { name = 'buffer' },
+        })
+      })
+
+      -- Set configuration for specific filetype.
+      cmp.setup.filetype('gitcommit', {
+        sources = cmp.config.sources({
+          { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+        }, {
+          { name = 'buffer' },
+        })
+      })
+
+      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
+      })
+
+      -- Set up lspconfig.
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+      require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+        capabilities = capabilities
+      }
+    end
+  },
+
 })
 
 -- vim.cmd [[highlight IndentBlanklineIndent1 ctermfg=white 333333 gui=nocombine]]
@@ -104,6 +191,21 @@ require("indent_blankline").setup {
 
 -- #########################################################################################
 
+local current_theme_name = os.getenv('BASE16_THEME')
+local set_theme_path = "$HOME/.config/tinted-theming/set_theme.lua"
+local is_set_theme_file_readable = vim.fn.filereadable(vim.fn.expand(set_theme_path)) == 1 and true or false
+
+if current_theme_name and vim.g.colors_name ~= 'base16-'..current_theme_name then
+  vim.cmd('let base16colorspace=256')
+  vim.cmd('colorscheme base16-'..current_theme_name)
+end
+
+if is_set_theme_file_readable then
+  vim.cmd("source " .. set_theme_path)
+end
+
+-- #########################################################################################
+
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -135,7 +237,20 @@ vim.opt.autoread = true
 vim.opt.hidden = true
 vim.opt.grepprg = 'rg --vimgrep'
 
+vim.cmd('abbreviate zx 🦄');
+
 vim.api.nvim_set_option('clipboard', 'unnamed')
+
+
+vim.filetype.add({
+  extension = {
+    -- ['270'] = 'x12',
+    thor = 'ruby',
+  },
+  pattern = {
+    ['.*%yaml.gotmpl'] = 'yaml',
+  },
+})
 
 -- ###############
 
@@ -211,10 +326,16 @@ vim.keymap.set('n', '<leader>b', '<cmd>lua require("fzf-lua").buffers()<CR>', { 
 vim.keymap.set('n', '<leader>,', '<C-6>', { silent = true })
 
 
+
+
+-- ################## 
+
+
+
 -- ################## coc.vim stuff
 
 -- inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-vim.keymap.set('i', '<expr><tab>', 'pumvisible() ? "<c-n>" : "<tab>"')
+-- vim.keymap.set('i', '<expr><tab>', 'pumvisible() ? "<c-n>" : "<tab>"')
 
 
 -- " nmap <silent> gd <Plug>(coc-definition)
