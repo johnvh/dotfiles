@@ -36,7 +36,7 @@ require("lazy").setup({
   'tpope/vim-git',
   'bronson/vim-visual-star-search',
   'itchyny/lightline.vim',
-  'maximbaz/lightline-ale',
+  -- 'maximbaz/lightline-ale',
   'tpope/vim-fugitive',
   'tpope/vim-rails',
   'vim-ruby/vim-ruby',
@@ -66,6 +66,21 @@ require("lazy").setup({
   { 'lukas-reineke/indent-blankline.nvim', tag = 'v2.20.8' },
 
   'tinted-theming/base16-vim',
+
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function ()
+      local configs = require('nvim-treesitter.configs')
+
+      configs.setup({
+        ensure_installed = { 'lua', 'vim', 'vimdoc', 'query', 'javascript', 'html', 'ruby', 'bash' },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end
+  },
 
   {
     'hrsh7th/nvim-cmp',
@@ -141,11 +156,11 @@ require("lazy").setup({
       })
 
       -- Set up lspconfig.
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-      require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-        capabilities = capabilities
-      }
+      -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      -- -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+      -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+      --   capabilities = capabilities
+      -- }
     end
   },
 
