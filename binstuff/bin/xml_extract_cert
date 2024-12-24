@@ -18,7 +18,12 @@ cert_container = cert_containers.find do |node|
 end
 cert_container ||= cert_containers.first
 
-cert_node = REXML::XPath.first(cert_container, '//*[local-name()="X509Certificate"]')
+cert_node = if cert_containers.size > 0
+              REXML::XPath.first(cert_container, '//*[local-name()="X509Certificate"]')
+            else
+              # if cert not in KeyDescriptor, just take first X509 node
+              cert_node ||= REXML::XPath.first(doc.root, '//*[local-name()="X509Certificate"]')
+            end
 
 if !cert_node
   $stderr.puts 'no cert found'
