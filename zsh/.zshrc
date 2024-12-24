@@ -1,12 +1,13 @@
-export PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
+export PATH=~/bin:${PATH}
 export EDITOR=nvim
 
+DISABLE_AUTO_UPDATE=true
 . ~/.ohmyzsh.zshrc
 
 [[ ! -d ~/.config ]] && mkdir ~/.config
 
 # xmllint --format indent char
-export XMLLINT_INDENT='	'
+export XMLLINT_INDENT='  '
 # always grep w/ color
 export GREP_OPTIONS='--color=auto'
 # fzf runs this by default, assumes ripgrep
@@ -22,15 +23,9 @@ setopt ignore_eof
 # setprompt
 
 alias ll='ls -alG'
-alias dc='docker-compose'
+alias dc='docker compose'
 alias k=kubectl
 alias be='bundle exec'
-
-. "$HOME/.asdf/asdf.sh"
-
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
 
 if type brew &> /dev/null; then
   # FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
@@ -38,6 +33,13 @@ if type brew &> /dev/null; then
   # autoload -Uz compinit
   # compinit
 fi
+
+. "$HOME/.asdf/asdf.sh"
+
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+
 
 
 # PROMPT="🔥 %1/ > "
@@ -59,8 +61,10 @@ precmd() {
 }
 
 setopt prompt_subst
-PROMPT='🔥 %{$fg[green]%}%1d%{$reset_color%} %{$fg[blue]%}${vcs_info_msg_0_}%{$reset_color%}> '
+PROMPT='🔥 %{$fg[green]%}%1d%{$reset_color%} %{$fg[blue]%}${vcs_info_msg_0_}%{$reset_color%}→ '
 # PROMPT="%(?:%{%}🔥 :%{%}➜ ) %{%}%c%{%} ${vcs_info_msg_0_}% > "
+#
+RPS1='%B%(?.%F{green}.%F{red})%?%f%b'
 
 
 #######################
@@ -166,6 +170,12 @@ _base16_select () {
 #######################
 # /end base16 stuff
 #######################
+
+define_run () {
+  last=${history[@][1]}
+  echo 'last is:' $last
+  eval 'run () { set -x; ' $last ' $@; }'
+}
 
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
