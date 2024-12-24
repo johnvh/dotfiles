@@ -80,7 +80,8 @@ BASE16_SHELL_PATH="$HOME/.config/base16-shell"
 # some custom functions for switching themes...
 
 _base16_current () {
-  echo "base16-${BASE16_THEME#base16-}"
+  # echo "base16-${BASE16_THEME#base16-}"
+  cat ~/.config/tinted-theming/theme_name
 }
 
 _base16_list () {
@@ -106,8 +107,8 @@ _base16_list () {
                 .to_i(16)
             }
           }
-          .find_all { |bg:, **|
-            is_dark = (0xFF_FF_FF - bg) > bg
+          .find_all {
+            is_dark = (0xFF_FF_FF - _1[:bg]) > _1[:bg]
             dark ? is_dark : !is_dark
           }
           .collect { |d| d[:name] }
@@ -165,6 +166,18 @@ _base16_select () {
   )
   echo $theme
   eval $theme
+}
+
+_base16_favorite () {
+  local f=~/.config/base16-shell/favorites
+  touch "$f"
+  _base16_current >> "$f"
+  sort "$f" | sort -u | sponge "$f"
+}
+
+_base16_favorites () {
+  local f=~/.config/base16-shell/favorites
+  cat "$f"
 }
 
 #######################

@@ -5,9 +5,21 @@ require 'bundler/inline'
 gemfile do
   source 'https://rubygems.org'
   gem 'color', '~> 1'
+  gem 'chroma', '~> 0.2'
+  gem 'pry-byebug'
 end
 
 require 'pathname'
+require 'color'
+require 'pry'
+require 'logger'
+
+logger = Logger.new $stderr
+if ENV['DARKEN_THEME_BG_DEBUG'] == 1
+  logger.level = Logger::DEBUG
+else
+  logger.level = Logger::FATAL
+end
 
 tt_home = Pathname.new '/Users/jvanhorn/.config/tinted-theming'
 b16_home = Pathname.new '/Users/jvanhorn/.config/base16-shell'
@@ -17,18 +29,55 @@ raise "doesnt exist: #{b16_home}" unless b16_home.exist?
 
 current_theme_name = tt_home./('theme_name').read.strip
 current_theme_file = b16_home./("scripts/base16-#{current_theme_name}.sh")
+logger.info({current_theme_name: , current_theme_file: }.inspect)
 dry_run = ARGV.include?("-d")
 
 puts current_theme_file
 puts "dry run? #{dry_run}"
 
-# background: base 00
-# foreground: base 05
-
+# color00="0e/3c/46" # Base 00 - Black
+# put_template_custom Ph 0e3c46 # background
+# export BASE16_COLOR_00_HEX="0e3c46"
 
 # extract bg line in theme file 
 #   color00="17/19/1e" # Base 00 - Black
 bg_ln = current_theme_file.readlines.grep(/color00="/i)&.first
 bg_m = bg_ln&.match(/color00="([0-9a-f]+)\/([0-9a-f]+)\/([0-9a-f]+)/i)&.to_a
 bg = [bg_m[1], bg_m[2], bg_m[3]]
-p bg
+
+# hex_colors = bg_m.to_a.drop 1
+# rgb_color = Color::RGB.by_hex hex_colors.join('')
+# hsl_color = rgb_color.to_hsl
+# p rgb_color
+
+# new_hsl_color = hsl_color.dup
+# p hsl_color.luminosity
+# # new_hsl_color.luminosity = hsl_color.lumi
+
+hex_colors = bg_m.to_a.drop 1 # just groups from regex
+color = Chroma.paint "#".+(hex_colors.join '')
+new_color = color.darken(5)
+new_color_hex = new_color.to_hex[1..] # drop leading '#'
+new_hex_colors = new_color_hex.chars.each_slice(2).map(&:join) # separate into R, G, B
+
+theme_src = current_theme_file.read
+# p color
+# p new_color
+# p new_color.to_hex
+# p new_hex_colors
+
+# color00="0e/3c/46" # Base 00 - Black
+theme_src.gsub! hex_colors.join('/'), new_hex_colors.join('/')
+
+# put_template_custom Ph 0e3c46 # background
+# put_template_custom Pm 0e3c46 # cursor text
+theme_src.gsub! "Ph #{hex_colors.join('')}", "Ph #{new_hex_colors.join('')}"
+theme_src.gsub! "Pm #{hex_colors.join('')}", "Pm #{new_hex_colors.join('')}"
+
+# export BASE16_COLOR_00_HEX="0e3c46"
+theme_src.gsub! %Q[BASE16_COLOR_00_HEX="#{hex_colors.join('')}"],
+               %Q[BASE16_COLOR_00_HEX="#{new_hex_colors.join('')}"]
+
+unless dry_run
+  current_theme_file.write theme_src
+end
