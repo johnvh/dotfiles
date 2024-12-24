@@ -17,13 +17,16 @@ require("lazy").setup({
   {
     "ibhagwan/fzf-lua",
     config = function()
-      require("fzf-lua").setup({})
+      require("fzf-lua").setup({
+        files = {
+          git_icons = false
+        },
+      })
     end
   },
   'vim-scripts/confluencewiki.vim',
   {dir = '~/.vim/plugged/notes'},
   {dir = '~/.vim/plugged/x12'},
-
 
   -- 'sheerun/vim-polyglot',
   'tpope/vim-sleuth',
@@ -51,7 +54,11 @@ require("lazy").setup({
   -- Plug 'w0rp/ale'
   -- Plug 'chriskempson/base16-vim'
   'christoomey/vim-tmux-navigator',
-  'preservim/vimux',
+
+  -- fork of preservim/vimux that respects RunnerIndex to target a pane
+  '3ximus/vimux',
+  -- 'preservim/vimux',
+
   -- Plug 'raimondi/delimitmate'
   -- Plug 'sbdchd/neoformat'
   -- Plug 'depuracao/vim-rdoc'
@@ -74,12 +81,24 @@ require("lazy").setup({
       local configs = require('nvim-treesitter.configs')
 
       configs.setup({
-        ensure_installed = { 'lua', 'vim', 'vimdoc', 'query', 'javascript', 'html', 'ruby', 'bash' },
+        ensure_installed = { 'lua', 'vim', 'vimdoc', 'query', 'javascript', 'html', 'ruby', 'sql', 'bash' },
+
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
       })
     end
+  },
+
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      -- Automatically install LSPs to stdpath for neovim
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      -- Useful status updates for LSP
+      'j-hui/fidget.nvim',
+    }
   },
 
   {
@@ -101,30 +120,26 @@ require("lazy").setup({
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
             vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
           end,
         },
         window = {
+
           -- completion = cmp.config.window.bordered(),
           -- documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         }),
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'vsnip' }, -- For vsnip users.
-          -- { name = 'luasnip' }, -- For luasnip users.
-          -- { name = 'ultisnips' }, -- For ultisnips users.
-          -- { name = 'snippy' }, -- For snippy users.
         }, {
           { name = 'buffer' },
+          { name = 'path' },
         })
       })
 
@@ -166,6 +181,8 @@ require("lazy").setup({
 
 })
 
+require('mason').setup()
+
 -- vim.cmd [[highlight IndentBlanklineIndent1 ctermfg=white 333333 gui=nocombine]]
 
 require("indent_blankline").setup {
@@ -180,6 +197,22 @@ require("indent_blankline").setup {
   char_highlight_list = { "IndentBlanklineIndent1" },
   space_char_highlight_list = { "IndentBlanklineIndent1" },
 }
+
+
+
+local fn = vim.fn
+local cmd = vim.cmd
+local set_theme_path = "$HOME/.config/tinted-theming/set_theme.lua"
+local is_set_theme_file_readable = fn.filereadable(fn.expand(set_theme_path)) == 1 and true or false
+
+if is_set_theme_file_readable then
+  cmd("let base16colorspace=256")
+  cmd("source " .. set_theme_path)
+end
+
+vim.api.nvim_create_user_command('ColorSoure',function()
+  cmd("source " .. set_theme_path)
+end,{})
 
 
 --local cmd = vim.cmd
@@ -206,21 +239,22 @@ require("indent_blankline").setup {
 
 -- #########################################################################################
 
-local current_theme_name = os.getenv('BASE16_THEME')
-local set_theme_path = "$HOME/.config/tinted-theming/set_theme.lua"
-local is_set_theme_file_readable = vim.fn.filereadable(vim.fn.expand(set_theme_path)) == 1 and true or false
-
-if current_theme_name and vim.g.colors_name ~= 'base16-'..current_theme_name then
-  vim.cmd('let base16colorspace=256')
-  vim.cmd('colorscheme base16-'..current_theme_name)
-end
-
-if is_set_theme_file_readable then
-  vim.cmd("source " .. set_theme_path)
-end
+-- local current_theme_name = os.getenv('BASE16_THEME')
+-- local set_theme_path = "$HOME/.config/tinted-theming/set_theme.lua"
+-- local is_set_theme_file_readable = vim.fn.filereadable(vim.fn.expand(set_theme_path)) == 1 and true or false
+-- 
+-- if current_theme_name and vim.g.colors_name ~= 'base16-'..current_theme_name then
+--   vim.cmd('let base16colorspace=256')
+--   vim.cmd('colorscheme base16-'..current_theme_name)
+-- end
+-- 
+-- if is_set_theme_file_readable then
+--   vim.cmd("source " .. set_theme_path)
+-- end
 
 -- #########################################################################################
 
+vim.opt.swapfile = false
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -233,7 +267,7 @@ vim.opt.listchars = { space = '·', tab = '›⋮', eol = '↲', trail = '∙' }
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.showmatch = true
-vim.opt.pastetoggle = '<f8>'
+-- vim.opt.pastetoggle = '<f8>'
 vim.opt.wrap = false
 vim.opt.textwidth = 80
 -- vim.opt.cursorline = true
@@ -264,6 +298,7 @@ vim.filetype.add({
   },
   pattern = {
     ['.*%yaml.gotmpl'] = 'yaml',
+    ['%.env.*'] = 'sh',
   },
 })
 
@@ -324,6 +359,10 @@ vim.keymap.set('n', '<leader>tt',  ':silent exec "!_tmux_exit_copy_mode > /dev/n
 vim.keymap.set('n', '<leader>tv0', ':let g:VimuxRunnerIndex=0<CR>')
 vim.keymap.set('n', '<leader>tv1', ':let g:VimuxRunnerIndex=1<CR>')
 vim.keymap.set('n', '<leader>tv2', ':let g:VimuxRunnerIndex=2<CR>')
+
+-- vim-unimpaired like mappings for base64 encode/decode
+vim.keymap.set('v', '[64', 'c<c-r>=system("base64", @")<cr><esc>')
+vim.keymap.set('v', ']64', 'c<c-r>=system("base64 --decode", @")<cr><esc>')
 
 
 -- not using ale right now
