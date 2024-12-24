@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+# Usage: certinfo source_file
+#   or:  < somecert.pem certinfo
+#
+# Prints info from X509 certificate `source_file`, or given on stdin. If given a
+# file, and there is an adjacent file with '.key' extension, it assumes that
+# adjacent .key file is the RSA key paired with the cert, and prints its public
+# key sha1.
+
+require 'openssl'
+require 'pathname'
+
+cert = OpenSSL::X509::Certificate.new(ARGF.read)
+
+def hex_pretty(hex)
+  hex.upcase.split('').each_slice(2).map(&:join).join(':')
+end
+
+def fingerprint(cert)
+  hex_pretty OpenSSL::Digest::SHA1.new(cert.to_der).to_s
+end
+
+puts "subject: #{cert.subject}"
+puts "issuer: #{cert.issuer}"
+puts "not before: #{cert.not_before}"
+puts "not after: #{cert.not_after}"
+puts "serial hex: #{hex_pretty(cert.serial&.to_s(16))}"
+puts "serial 10: #{cert.serial&.to_s(10)}"
+puts "fingerprint sha1: #{fingerprint cert}"
+puts "public key sha1: #{fingerprint cert.public_key}"
+
+if ARGF.filename == "-"
+  # ARGF is a cert on stdin, so we cant do the adjacent key check below
+  exit
+end
+
+# check for adjacent key file
+pkey_f = Pathname.new(ARGF.filename).sub_ext('.key')
+if pkey_f.exist?
+  pkey = OpenSSL::PKey::RSA.new(pkey_f.read)
+  puts
+  puts "adjacent private key file found"
+  puts "public key sha1: #{fingerprint pkey.public_key}"
+end

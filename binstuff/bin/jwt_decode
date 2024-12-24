@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'base64'
+require 'json'
+
+token = ARGF.read
+
+parts = token.split('.')
+
+parts.each do |section|
+  begin
+    data = JSON.parse(Base64.decode64(section))
+    puts JSON.pretty_generate(data)
+  rescue JSON::ParserError => e
+    # probably binary
+    puts "# binary?"
+  end
+end
