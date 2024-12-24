@@ -16,6 +16,7 @@ get_times = ->(tz, icon, color) do
 end
 
 times = [
+  get_times.call(TZInfo::Timezone.get('Europe/Madrid'), '⏰', 'steelblue'),
   get_times.call(TZInfo::Timezone.get('America/New_York'), '⏰', 'steelblue'),
 
   # ["⏰ #{now.strftime(zone_format)}", now.strftime('%F %r %z (%k:%M)'), 'steelblue'],
