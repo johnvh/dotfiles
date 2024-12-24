@@ -6,6 +6,9 @@
   excludesfile = ~/.gitignore.global
   pager = delta
 
+[branch]
+  sort = -committerdate
+
 [delta]
   navigate = true  # use n and N to move between diff sections
   light = false
@@ -23,6 +26,7 @@
   co = checkout
   ci = commit
   f = fetch --prune
+  ll = log --oneline -10
 
   # show global aliases
   alias = "!f(){ git config -l --global | grep ^alias;}; f"
@@ -34,6 +38,11 @@
   ix = "diff --cached"
   # + word-diff
   wix = "diff --cached --word-diff"
+
+  cos = "!f(){ git config -l --global | grep ^alias;}; f"
+
+  ; mainbranch = "!f(){ git remote show origin | sed -n '/HEAD branch/s/.*: //p'}; f"
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
 
 [merge]
   #In addition to <<< (yours) and >>> (theirs) markers, adds ||| (original,
