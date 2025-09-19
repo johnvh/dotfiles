@@ -11,7 +11,7 @@ export XMLLINT_INDENT='  '
 # always grep w/ color
 export GREP_OPTIONS='--color=auto'
 # fzf runs this by default, assumes ripgrep
-export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/*'"
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow -g '!.git/*'"
 
 export BAT_THEME=base16-256
 
