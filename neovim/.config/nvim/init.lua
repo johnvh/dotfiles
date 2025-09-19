@@ -19,10 +19,12 @@ vim.filetype.add({
   extension = {
     -- ['270'] = 'x12',
     thor = "ruby",
+    gotmpl = "gotmpl",
   },
   pattern = {
     [".*%yaml.gotmpl"] = "yaml",
     ["%.env.*"] = "sh",
+    ["Gemfile.*"] = "ruby",
   },
 })
 
