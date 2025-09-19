@@ -1,4 +1,7 @@
 
+-- see https://github.com/telemachus/dotfiles/blob/main/config/nvim/lua/bitly.lua
+-- for example of plugin that changes visual selection
+
 local datemod = function()
   if vim.fn.mode() ~= "v" then
     return
@@ -8,7 +11,24 @@ local datemod = function()
   local end_pos = vim.fn.getpos(".")
   local selection = vim.fn.getregion(start_pos, end_pos)
 
-  local result = '1979-09-28'
+  -- local output = vim.fn.system { 'echo', 'hi' }
+
+
+  local command = "ruby ~/.local/share/nvim/datemod/datemod.rb " .. "'" .. selection[1] .. "'"
+  -- print(command)
+
+  local fp = io.popen(command, "r")
+  local output = fp:read("*a")
+  fp:close()
+
+  -- print(vim.inspect(fp))
+  -- print("output:")
+  -- print(vim.inspect(output))
+
+  local newdate = output:gsub("%s+", "")
+  -- print("newdate:")
+  -- print(vim.inspect(newdate))
+
 
   vim.api.nvim_buf_set_text(
     start_pos[1],
@@ -16,7 +36,7 @@ local datemod = function()
     start_pos[3] - 1,
     end_pos[2] - 1,
     end_pos[3],
-    { result }
+    { newdate }
   )
 
 
