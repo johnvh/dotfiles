@@ -11,7 +11,14 @@
 -- - https://github.com/zootedb0t/citruszest.nvim
 if true then
   -- return require('plugins.colorscheme.kanagawa')
-  return require('plugins.colorscheme.cyberdream')
+  -- return require('plugins.colorscheme.cyberdream')
+  -- return require('plugins.colorscheme.one_mokokai')
+  -- return require('plugins.colorscheme.rose-pine')
+  -- return require('plugins.colorscheme.calvera-dark')
+  -- return require('plugins.colorscheme.neosolarized')
+  -- return require('plugins.colorscheme.tokyonight')
+  -- return require('plugins.colorscheme.fluoromachine')
+  return require('plugins.colorscheme.synthweave')
 end
 
 return {
@@ -26,8 +33,6 @@ return {
   --     print("current theme", theme)
   --   end,
   -- },
-
-  -- { "tiagovla/tokyodark.nvim", },
 
 
   -- {
@@ -63,13 +68,13 @@ return {
   --   end,
   -- },
 
-  { "nyoom-engineering/oxocarbon.nvim" },
+  -- { "nyoom-engineering/oxocarbon.nvim" },
 
   {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "onedark",
-      colorscheme = "oxocarbon",
+      -- colorscheme = "oxocarbon",
     },
   },
 }
