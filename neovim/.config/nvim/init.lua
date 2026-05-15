@@ -29,12 +29,3 @@ vim.filetype.add({
 })
 
 vim.cmd("abbreviate zx 🦄")
-
--- vim.keymap.set('v', '<leader>'
--- vim.api.nvim_create_user_command(
---   'ConvertDate',
---   function ()
---
---   end
--- )
-

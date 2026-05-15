@@ -13,6 +13,11 @@ return {
   },
 
   {
+    "folke/lazy.nvim",
+    tag = "stable", -- Pin to the latest stable tag
+  },
+
+  {
     "ahmedkhalf/project.nvim",
     opts = {
       patterns = { ">~/Documents/projects" },

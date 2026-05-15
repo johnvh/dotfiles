@@ -12,9 +12,10 @@ require 'date'
 
 input = ARGV.last || $stdin.read.strip
 
-d = (Date.parse(input) rescue nil)
-    .then do |v|
-      v.nil? ? Chronic.parse(input) : v
-    end
+# d = (Date.parse(input) rescue nil)
+#     .then do |v|
+#       v.nil? ? Chronic.parse(input) : v
+#     end
+d = Chronic.parse input
 
 puts d.to_date.iso8601

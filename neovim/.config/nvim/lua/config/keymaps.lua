@@ -23,13 +23,33 @@ vim.keymap.set("n", "-", function()
   })
 end)
 
-vim.keymap.set("n", "<leader>fp", function()
-  Snacks.picker.files({ cwd = "~/projects" })
-end)
+require("which-key").add({
+  {"<leader>fp", function()
+      Snacks.picker.files({ cwd = "~/projects" })
+    end,
+    desc = "Projects dir"
+  },
+  {"<leader>zd", require("datemod").datemod,
+    desc = "datemod",
+    mode = {"v"}
+  },
+  {'<lsader>tc',  ':VimuxPromptCommand<CR>'},
+  {'<leader>tl',  ':VimuxRunLastCommand<CR>'},
+  {'<leader>ww',  ':w<CR>:VimuxRunLastCommand<CR>'},
+  {'<leader>tt',  ':silent exec "!_tmux_exit_copy_mode > /dev/null 2>&1"<CR>'},
+  {'<leader>tv0', ':let g:VimuxRunnerIndex=0<CR>'},
+  {'<leader>tv1', ':let g:VimuxRunnerIndex=1<CR>'},
+  {'<leader>tv2', ':let g:VimuxRunnerIndex=2<CR>'},
+})
 
 
-vim.keymap.set("v", "<Leader>zd", require("datemod").datemod, { remap = false, silent = true })
-
+vim.keymap.set('n', '<leader>tc',  ':VimuxPromptCommand<CR>')
+vim.keymap.set('n', '<leader>tl',  ':VimuxRunLastCommand<CR>')
+vim.keymap.set('n', '<leader>ww',  ':w<CR>:VimuxRunLastCommand<CR>')
+vim.keymap.set('n', '<leader>tt',  ':silent exec "!_tmux_exit_copy_mode > /dev/null 2>&1"<CR>')
+vim.keymap.set('n', '<leader>tv0', ':let g:VimuxRunnerIndex=0<CR>')
+vim.keymap.set('n', '<leader>tv1', ':let g:VimuxRunnerIndex=1<CR>')
+vim.keymap.set('n', '<leader>tv2', ':let g:VimuxRunnerIndex=2<CR>')
 
 -- {
 --   "<leader>fe",
