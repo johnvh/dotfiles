@@ -25,6 +25,7 @@ setopt ignore_eof
 alias ll='ls -alG'
 alias dc='docker compose'
 alias k=kubectl
+alias kcc='kubectx -c; kubens -c'
 alias be='bundle exec'
 
 if type brew &> /dev/null; then
@@ -34,12 +35,20 @@ if type brew &> /dev/null; then
   # compinit
 fi
 
-. "$HOME/.asdf/asdf.sh"
-
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# . "$HOME/.asdf/asdf.sh"
 # append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
+# fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 
+
+## 
+## https://github.com/danielfoehrKn/kubeswitch
+## 
+# if [[ which -s switcher ]]; then
+source <(switcher init zsh)
+source <(compdef _switcher switch)
+alias ks=switch
 
 
 # PROMPT="🔥 %1/ > "
@@ -68,116 +77,62 @@ RPS1='%B%(?.%F{green}.%F{red})%?%f%b'
 
 
 #######################
-# base16 stuff
+# color stuff
 #######################
 
-# https://github.com/tinted-theming/base16-shell
-BASE16_SHELL_PATH="$HOME/.config/base16-shell"
-[ -n "$PS1" ] && \
-  [ -s "$BASE16_SHELL_PATH/profile_helper.sh" ] && \
-    source "$BASE16_SHELL_PATH/profile_helper.sh"
+tinty apply $(cat ~/.local/share/tinted-theming/tinty/current_scheme)
 
-# some custom functions for switching themes...
+TINTY_PREFER=dark
 
-_base16_current () {
-  # echo "base16-${BASE16_THEME#base16-}"
-  cat ~/.config/tinted-theming/theme_name
+tinty_list_dark() {
+  tinty list --json | jq '.[] | select(.variant == "dark") | .id' -r
 }
 
-_base16_list () {
-  local prefer=${BASE16_PREFER-all}
-  local all=$(\ls -1 ${BASE16_SHELL_PATH}/scripts/ | sed 's/.sh$//')
-  case $prefer in
-    all)
-      echo "$all"
-      ;;
-    dark|light)
-      echo "$all" | ruby -e '
-        dark = ARGV.first == "dark"
-        $stderr.puts "dark? #{dark}"
-        puts $stdin.readlines
-          .collect { |fn|
-            fn.chomp!
-            {
-              name: fn,
-              bg: File.readlines(ENV["HOME"] + "/.config/base16-shell/scripts/" + fn + ".sh")
-                .find { |l| l =~ /^color_background/ }
-                .match(/="([^"]+)"/)[1]
-                .gsub("/", "")
-                .to_i(16)
-            }
-          }
-          .find_all {
-            is_dark = (0xFF_FF_FF - _1[:bg]) > _1[:bg]
-            dark ? is_dark : !is_dark
-          }
-          .collect { |d| d[:name] }
-      ' -- $prefer
-      ;;
-    *)
-      echo "dont know BASE16_PREFER" "$BASE16_PREFER" >&2
-      ;;
-  esac
+tinty_list_light() {
+  local prefer=${TINTY_PREFER-dark}
+  tinty list --json | jq '.[] | select(.variant == "dark") | .id' -r
 }
 
-_base16_choose () {
-  _base16_list | ruby -e '
-    all = $stdin.readlines.collect &:chomp
-    # BASE16_THEME from env initally prefixed with "base16-", but not after switching
-    current = "base16-" + ENV["BASE16_THEME"].sub(/^base16-/, "")
-    next_n = ARGV.first.to_i
-    next_idx = all.index(current) + next_n
-    # $stderr.puts ARGV.inspect
-    # $stderr.puts next_n
-    puts all[next_idx % all.length].sub("-", "_")  # function is named base16_<color-theme>
-  ' -- "$1"
+tinty_list() {
+  local prefer=${TINTY_PREFER-dark}
+  tinty_list_${prefer}
 }
 
-_base16_next () {
-  local theme=$(_base16_choose 1)
-  echo $theme
-  eval $theme
+tinty_select() {
+  tinty apply $(tinty_list | fzf --cycle --height=10)
 }
 
-_base16_prev () {
-  local theme=$(_base16_choose -1)
-  echo $theme
-  eval $theme
-}
-
-_base16_random () {
-  local theme=$(_base16_list | ruby -e '
+tinty_random() {
+  local new_theme=$(tinty_list | ruby -e '
     all = $stdin.readlines
-    puts all.sample.chomp.sub("-", "_")
+    puts all.sample.chomp
   ')
-  echo $theme
-  eval $theme
+  echo current: $(tinty current)
+  echo next: $new_theme
+  tinty apply $new_theme
 }
 
-_base16_select () {
-  # TODO: change themes on fzf move? `fzf ... --preview='bash -lc "eval {}"'` is pretty close
-  local theme=$(_base16_list \
-    | ruby -e '
-        current = "base16-" + ENV["BASE16_THEME"].sub(/^base16-/, "")
-        all = $stdin.readlines.collect(&:chomp) - [current]
-        puts [current].concat(all).collect { |t| t.sub "base16-", "base16_" }
-      ' \
-    | fzf --cycle --height=10
-  )
-  echo $theme
-  eval $theme
+tinty_choose() {
+  local next_theme=$(tinty_list | ruby -e '                                                                                                                                                                                0
+    all = $stdin.readlines.collect(&:chomp)
+    current = ARGV.at(-2)
+    dir = ARGV.last.to_i
+    next_idx = all.index(current) + dir
+    # p [current, dir, next_idx]
+    next_theme = all[next_idx % all.size]
+    puts next_theme
+  ' -- "$(tinty current)" $1)
+  echo current: $(tinty current)
+  echo next: $next_theme
+  tinty apply $next_theme
 }
 
-_base16_favorite () {
-  local f=~/.config/base16-shell/favorites
-  touch "$f"
-  _base16_current >> "$f"
-  sort "$f" | sort -u | sponge "$f"
+tinty_next() {
+  tinty_choose 1
 }
 
-_base16_favorites () {
-  local f=~/.config/base16-shell/favorites
-  cat "$f"
+tinty_prev() {
+  tinty_choose -1
 }
 
 #######################
@@ -193,3 +148,6 @@ define_run () {
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
+
+# Teladoc local tools – highest PATH priority
+export PATH="$HOME/.local/bin:$PATH"
